@@ -27,7 +27,7 @@ Columns: ticker (str), date (date), T (int), sigma (float, annualized vol), z (f
 Due to file size limits, the parquet file is divided into three parts. Combine them with the command:
 ```python
 df = pd.concat([pd.read_parquet("dataset_part1.parquet"),pd.read_parquet("dataset_part2.parquet"),pd.read_parquet("dataset_part3.parquet")])
-'''
+```
 
 Python dependencies: pip install yfinance pandas numpy scipy matplotlib pyarrow
 
