@@ -7,7 +7,7 @@ across 352 assets and all horizons 1-26 weeks with R² ≥ 0.99 and ≤ 2 free p
 
 Here z = x/sqrt(T) where x is the log price change over a period T, adjusted for drift. Read the paper Q-Variance_Wilmott_July2025.pdf for more details.
 
-Quantum baseline (Orrell 2025): R² ≈ 0.998
+Quantum baseline (Orrell 2025): R² ≈ 0.998. Uses two parameters, σ₀ and a small horizontal offset
 
 Repository contains:
 - Data set (dataset.parquet) containing price data for 352 stocks from the S&P 500 (stocks with less than 25 years of data were not included)
