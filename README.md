@@ -82,9 +82,13 @@ Q: Is q-variance related to the price-change distribution over a period?
 
 A: Yes, it implies that price-change follows the q-distribution which is a particular time-invariant, Poisson-weighted sum of Gaussians (see further reading below). [Figure 4](Figure_4.png) compares the q-distribution with the average distribution over the S&P 500 stocks, where the distribution of each stock has been normalized by its standard deviation for comparability.
 
+Q: How does q-variance vary over different time periods, or from stock to stock?
+
+A: In theory the curve should be time-invariant, though in practice there is a small degree of variation, see [Figure 2](Figure_2.png). The results for individual stocks are of course noisier as shown in [Figure 3](Figure_3.png), but taking the average variance over a number of stocks smooths out this noise.
+
 Q: What is the point in using a classical model if the quantum model is an almost perfect match to the data?
 
-A: The quantum model predicts variance and the price-change distribution, but does not provide a time series of daily prices. If a classical model can do that, and still produce the quadratic shape, then that will be very useful. We will therefore also give an honorable mention to any classical entry which can come close to matching the quantum model even if it involves extra parameters.
+A: The quantum model predicts variance and the price-change distribution, but does not provide a time series of daily prices. If a classical model can do that, and still produce the quadratic shape, then that will be very useful. We will therefore also give an honorable mention to any classical entry which can come close to matching the quantum model even if it involves extra parameters (though parsimony is important in order to understand how the model works, otherwise it is just a fitting exercise).
 
 Q. What does this have to do with subatomic particles?
 
