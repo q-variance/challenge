@@ -73,7 +73,7 @@ A: Not to our knowledge, and we have asked many experts, but please bring any re
 
 Q: Does q-variance have implications for quantitative finance?
 
-A: Yes, classical finance assumes a diffusive model for price change, which does not produce q-variance. Standard formulas such as Black-Scholes or the formula used to calculate VIX will therefore not work as expected.
+A: Yes, classical finance assumes a diffusive model for price change, but q-variance is a marker of price dynamics that are shaped by transactions. Standard formulas such as Black-Scholes or the formula used to calculate VIX will therefore not work as expected.
 
 Q: How does q-variance vary over different time periods, or from stock to stock?
 
@@ -93,7 +93,7 @@ A: The quantum model predicts variance and the price-change distribution, but do
 
 Q: How was the quantum model derived?
 
-A: Details are in the references, but put simply the q-variance property is the equation for the variance of a perturbed quantum oscillator, which was derived by quantizing a linear entropic force and can be viewed as a first-order approximation to the price dynamics as they play out over a period.
+A: Details are in the references, but put simply the q-variance property is the equation for the variance of a perturbed quantum oscillator, which was derived by quantizing a linear entropic force. The model can be viewed as a first-order approximation to the price dynamics as they play out over a period.
 
 Q. What does the quantum model, or the behaviour of stocks, have to do with subatomic particles?
 
