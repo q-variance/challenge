@@ -115,7 +115,7 @@ nbins = int(2*zmax/delz + 1)
 bins = np.linspace(-zmax, zmax, nbins)         # fixed bins
 
 if len(np.unique(df_orig["ticker"])) >= 1:     # set to >=1 to divide all data, or == 1 to divide model data only ###
-    print("dividing into 400 separate runs") 
+    print("dividing into 800 separate runs") 
     df = assign_segmented_tickers(df_orig,800)  # divide and add tickers
 else:
     df = df_orig
