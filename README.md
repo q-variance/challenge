@@ -103,6 +103,18 @@ Q: Can I use AI for the challenge?
 
 A: Sure, in fact we used Grok to help design and code the challenge. Its [entry](submissions/grok_rough_vol) is a modified rough volatility model which achieves an R² of 0.986, however it needs four parameters and also is not time-invariant. The aim is to find a process which can achieve better results with fewer parameters.
 
+Q: How is the competition going so far?
+
+A: Some great tries but no clear winner, see the summary [here](subsummary.md).
+
+Q: Okay, I'll bite. What is the quantum explanation?
+
+A: Price change over a period is due to an imbalance between buyers and sellers, which is like pushing on a spring. Variance goes with the energy, which varies with the square of the displacement. See sources below.
+
+Q: Sounds like quantum woo to me.
+
+A: ?
+
 ## Further Reading
 
 Wilmott P, Orrell D (2025) [Q-Variance: or, a Duet Concerning the Two Chief World Systems](Q-Variance_Wilmott_July2025.pdf). Wilmott 2025(138).
