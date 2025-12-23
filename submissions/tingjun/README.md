@@ -3,8 +3,8 @@
 ## Model Overview
 
 The **Stochastic Volatility Model** describes the evolution of a security price $S$ and its instantaneous variance $V = \sigma^{2}$, where $\sigma$ is the volatility. The continuous-time stochastic processes are defined as:
-- $dS = \mu S dt + \sigma S dW$
-- $dV = \phi V dt + \xi V dZ$
+- $dS = \mu S dt + \sigma S dw$
+- $dV = \phi V dt + \xi V dz$
 
 In this specific implementation, we assume the **volatility of volatility** is zero ($\xi = 0$). The drift of variance, $\phi$, is driven by the absolute log-return of the asset: $\phi = b \times \Delta \ln(S)$, where $b$ is a free scaling parameter.
 
