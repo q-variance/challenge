@@ -1,8 +1,3 @@
-# score_submission.py - reads a parquet file and compares variance curve with baseline
-# also divides data into 400 parts, if 5e6 time points this gives 5e6//400 days or about 50 years each part
-# should see q-variance for each part, not just the total
-# also checks distn for time invariance
-
 import pandas as pd
 import numpy as np
 from scipy.optimize import curve_fit
@@ -30,6 +25,7 @@ print(f"z has NaNs: {df['z'].isna().sum()}")  # → 0
 df_orig = df.copy()
 
 # divide dataframe into equal segments and rename 'ticker' column based on segment number
+# note that parquet file has ticker on outer loop so this is like selecting certain stocks
 def assign_segmented_tickers(df,N_SEGMENTS):
     nr = len(df)
    
@@ -106,7 +102,7 @@ normcol = mcolors.Normalize(vmin=0, vmax=0.3)
 cmap = cm.get_cmap('coolwarm')
 
 
-# now change the fit for all and get coefficients qcopt
+# now change the fit for all and get coefficients qcopt for case T=5 ONLY
 zmax = 1  # larger grid
 ymax = 0.8
 
@@ -114,11 +110,13 @@ delz = 0.025*4  # wider bin for these noisy plots
 nbins = int(2*zmax/delz + 1)
 bins = np.linspace(-zmax, zmax, nbins)         # fixed bins
 
-if len(np.unique(df_orig["ticker"])) >= 1:     # set to >=1 to divide all data, or == 1 to divide model data only ###
-    print("dividing into 800 separate runs") 
-    df = assign_segmented_tickers(df_orig,800)  # divide and add tickers
+if len(np.unique(df_orig["ticker"])) == 1:     # set to >=1 to divide all data, or == 1 to divide model data only ###
+    print("dividing into 500 separate runs") 
+    df = assign_segmented_tickers(df_orig,500)  # divide and add tickers
 else:
+    print("data already divided into separate tickers") 
     df = df_orig
+
 
 TICKERS = np.unique(df["ticker"])
 r2vec = np.zeros(len(TICKERS))
@@ -127,7 +125,7 @@ q1vec = np.zeros(len(TICKERS))
 i = 0
 fig, ax = plt.subplots(figsize=(9,7))
 for tickcur in TICKERS:
-    dfcur = df[(df["ticker"] == tickcur)].copy()
+    dfcur = df[ (df["ticker"] == tickcur)  ].copy()   # & (df["T"] == 5)
     binned = (dfcur.assign(z_bin=pd.cut(dfcur.z, bins=bins, include_lowest=True))
                    .groupby('z_bin',observed=False)
                    .agg(z_mid=('z', 'mean'), var=('var', 'mean'))
@@ -148,7 +146,7 @@ r2mean = np.mean(r2vec)
 r2median = np.median(r2vec)
 ax.set_xlabel('z (scaled log return)', fontsize=12)
 ax.set_ylabel('Annualised variance', fontsize=12)
-ax.set_title(f'Mean R2 for individual stocks = {r2mean:4f}', fontsize=14)
+ax.set_title(f'Mean R2 for individual stocks = {r2mean:4f},  median = {r2median:4f}', fontsize=14)
 #ax.legend(fontsize=12)
 
 ymax2 = 1.2
@@ -197,8 +195,14 @@ print(f"Fit: σ₀ = {sig0_fit:.4f}, zoff = {zoff_fit:.4f}, R² = {r2:.4f}")
 # obtain histogram bars
 ##counts, bin_edges, _ = plt.hist(data["z"], bins=zbins, density=True, visible=False)
 
+
+
 # now plot distn with periods
-TVEC = [5, 10, 20, 40, 80]
+
+TVEC = np.unique(data["T"])  # case where T=5 only gives TVEC=5
+if len(TVEC) > 1:
+    TVEC = [5, 10, 20, 40, 80]
+
 
 plt.figure(figsize=(9,7))
 plt.plot(z_fine, q_pred_fine,
