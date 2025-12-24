@@ -156,13 +156,12 @@ The Poisson cap is set sufficiently high that it is **rarely binding** and does 
 
 ## Results
 
-### Q-Variance Relationship
-
 <p align="center">
-  <img src="figures/result1.png" width="650">
+  <img src="result1.png" width="650">
 </p>
 
-The simulated price paths reproduce the q-variance relationship with a global
-goodness-of-fit of **R² ≈ 0.996**, exceeding the challenge threshold.
+Simulated price paths reproduce the q-variance relationship with a global
+goodness-of-fit of **R² ≈ 0.996**, exceeding the challenge threshold of **0.995**.
+
 
 
