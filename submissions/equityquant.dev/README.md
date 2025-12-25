@@ -147,6 +147,7 @@ All remaining parameters are fixed *a priori* for numerical stability and scale 
 | `a_shape` | 1.5 | Diffusion discretisation constant |
 | `lam_cap` | 500.0 | Poisson intensity cap (numerical safeguard) |
 | `dt` | 1 / 252 | Trading-day discretisation |
+| `burn_in` | 2000  | burn-in removed from output |
 | `seed` | 6 | Reproducibility only |
 | `s0` | 100.0 | Initial price |
 
