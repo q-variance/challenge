@@ -68,8 +68,8 @@ def qvar2(z, s0, s1):    # define q-variance function, parameter is minimal vola
     return (s0**2 + s1*z**2 )
 
 # curve_fit returns a value popt and a covariance pcov, the _ means we ignore the pcov
-popt = [0.2586, 0.0214]  # same as optimized fit to data
-popt, _ = curve_fit(qvar, binned.z_mid, binned["var"], p0=[0.2, 0])  # fit this data
+popt = [0.2586, 0.0214]  # same as optimized fit to data  # for competition score should fit original parabola
+#popt, _ = curve_fit(qvar, binned.z_mid, binned["var"], p0=[0.2, 0])  # fit this data instead
 
 fitted = qvar(binned.z_mid, popt[0], popt[1])  # cols are z_bin, which is a range like (-0.601, -0.55], and qvar
 r2 = 1 - np.sum((binned["var"] - fitted)**2) / np.sum((binned["var"] - binned["var"].mean())**2)
