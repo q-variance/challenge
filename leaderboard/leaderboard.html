@@ -25,7 +25,7 @@
     <table id="leaderboard">
         <thead>
             <tr>
-                <th>rank</th>
+                <th>number</th>
                 <th>submission</th>
                 <th>author</th>
                 <th>params</th>
@@ -43,15 +43,15 @@
     <script>
         // 3. Added 'notes' property to sample data
         const entries = [
-             { rank: 1, submission: "simu.ai", author: "Thijs", params: "4: &sigma;, drift, shape factor 3/2, and sampling rate", status: "withdrawn", date: "2025-12-11", notes: "Variance drawn from inverse-Gamma distribution with shape factor 3/2, combined with regime-switching, Fit is near-perfect but high degree of randomness means that q-variance is only seen over very long time periods, and score goes below threshold with reasonable changes to e.g. SAMPLES_PER_DAY or MAX_WINDOW_DAYS." },
-            { rank: 2, submission: "tags", author: "Edouard", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-Gamma entry. Instability of this distribution (variance is undefined) means that the model does not reliably converge. Note that adjusting a parameter like shape factor to match q-variance by theory is treated the same as adjusting it empirically, because in either case the model is being adjusted to fit a desired result." },
-            { rank: 3, submission: " ", author: "Aleh", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-gamma model. Advantage of these models is they converge to q-variance in theory over very long times, problem is that if stocks behaved like this you would never see q-variance except on average over centuries of data." },
-            { rank: 4, submission: " ", author: "ShengQuan", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-gamma model, same sampling issue." },
-             { rank: 5, submission: "Luke", author: "Luke", params: "drift, base volatility, jumps probability per day, jump standard deviation", status: "TBD", date: "2025-12-15", notes: "Uses stochastic jumps, exceeds parameter limit." },
-             { rank: 6, submission: "equitquant.dev", author: "Dragon", params: "sigma, mu, kappa, c_int, a_shape", status: "TBD", date: "2025-12-24", notes: "Uses stochastic shocks, exceeds parameter limit, result depends on simulation time." },
-             { rank: 7, submission: "tingjun", author: "tingjun", params: "drift, base volatility, b", status: "withdrawn", date: "2025-12-24", notes: "Uses stochastic volatility, result depends on simulation time." },
-            { rank: 8, submission: "tingjun2", author: "tingjun", params: "drift, base volatility, persistence, price floor, ad hoc 0.01", status: "TBD", date: "2025-12-26", notes: "GARCH-like with exogenous reflecting price floor and ad hoc adjustment to variance update." },
-             { rank: 9, submission: "stochastic vol", author: "Grok", params: "5", status: "rejected", date: "2025-11-30", notes: "Thank you for playing." }
+             { rank: 1, submission: "stochastic vol", author: "Grok", params: "roughness, leverage, vol-of-vol, initial variance, offset", status: "rejected", date: "2025-11-30", notes: "Thank you for playing." },
+             { rank: 2, submission: "simu.ai", author: "Thijs", params: "4: &sigma;, drift, shape factor 3/2, and sampling rate", status: "withdrawn", date: "2025-12-11", notes: "Variance drawn from inverse-Gamma distribution with shape factor 3/2, combined with regime-switching, Fit is near-perfect but high degree of randomness means that q-variance is only seen over very long time periods, and score goes below threshold with reasonable changes to e.g. SAMPLES_PER_DAY or MAX_WINDOW_DAYS." },
+            { rank: 3, submission: "tags", author: "Edouard", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-Gamma entry. Instability of this distribution (variance is undefined) means that the model does not reliably converge. Note that adjusting a parameter like shape factor to match q-variance by theory is treated the same as adjusting it empirically, because in either case the model is being adjusted to fit a desired result." },
+            { rank: 4, submission: " ", author: "Aleh", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-gamma model. Advantage of these models is they converge to q-variance in theory over very long times, problem is that if stocks behaved like this you would never see q-variance except on average over centuries of data." },
+            { rank: 5, submission: " ", author: "ShengQuan", params: "&sigma;, drift, shape factor 3/2", status: "TBD", date: "2025-12-14", notes: "Another inverse-gamma model, same sampling issue." },
+             { rank: 6, submission: "Luke", author: "Luke", params: "drift, base volatility, jumps probability per day, jump standard deviation", status: "TBD", date: "2025-12-15", notes: "Uses stochastic jumps, exceeds parameter limit." },
+             { rank: 7, submission: "equitquant.dev", author: "Dragon", params: "sigma, mu, kappa, c_int, a_shape", status: "TBD", date: "2025-12-24", notes: "Uses stochastic shocks, exceeds parameter limit, result depends on simulation time." },
+             { rank: 8, submission: "tingjun", author: "tingjun", params: "drift, base volatility, b", status: "withdrawn", date: "2025-12-24", notes: "Uses stochastic volatility, result depends on simulation time." },
+            { rank: 9, submission: "tingjun2", author: "tingjun", params: "drift, base volatility, persistence, price floor, ad hoc 0.01", status: "TBD", date: "2025-12-26", notes: "GARCH-like with exogenous reflecting price floor and ad hoc adjustment to variance update." }
         ];
 
         const tableBody = document.getElementById('table-body');
