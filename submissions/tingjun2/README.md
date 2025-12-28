@@ -54,7 +54,7 @@ The model was optimized using the 5M-day horizon to achieve a high-fidelity fit 
 | Total Days | $\sigma_0$ (Target) | $z_{off}$ (Target) | $R^2$ | Notes |
 | :--- | :--- | :--- | :--- | :--- |
 | **5,000,000** | 0.2586 | 0.0214 | **0.997** | High-fidelity structural convergence. |
-| **100,000** | 0.2586 | 0.0214 | **0.996** | Lower $R^2$ due to idiosyncratic noise. |
+| **100,000** | 0.2586 | 0.0214 | **0.966** | Lower $R^2$ due to idiosyncratic noise. |
 
 ### Comparative Visualizations
 The transition from 100k days to 5M days shows the "clearing" of statistical noise. In the large sample, the stochastic variance updates converge almost perfectly to the theoretical parabola.
@@ -90,7 +90,7 @@ Figure: $R^2$ score vs. Total Days. The 0.995 threshold is maintained after the 
 ## Acknowledgments & Version History
 
 > **Version 2.0 Update**
-> An earlier version of this model utilized an incorrect definition of the intercept term ($\omega$), which led to a scaling mismatch in the long-run variance. Special thanks to **@orrell** for pointing out this discrepancy.
+> An earlier version of this model utilized an incorrect definition of the intercept term ($\omega$), which led to a scaling mismatch in the long-run variance. Special thanks to **@Orrell** for pointing out this discrepancy.
 
 In this current version, I have:
 * **Fixed the $\omega$ definition:** Implemented proper **Variance Targeting** logic, where $\omega = V_{target} \cdot \gamma$.
