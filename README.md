@@ -65,7 +65,7 @@ To make your entry official:
 
 **Submission tips**
 - Check your model is robust to things like the number of simulation steps or sample lengths, otherwise these are counted as parameters. The model data should converge to the parabola, not just match it for a particular choice of simulation time.
-- Something counts as a parameter if it is adjusted to fit the desired result, or if changing it within reasonable bounds affects the result. Please declare **all such parameters**, don't have an ad hoc number or adjustment somewhere in your code which affects the results but is not declared as a parameter.
+- Something counts as a parameter if it is adjusted to fit the desired result, or if changing it within reasonable bounds affects the result. Please declare **all such parameters**, don't have an ad hoc number or adjustment somewhere in your code which affects the results but is not declared as a parameter. Just because something is not explicitly optimized does not mean it is not a parameter.
 - Parameters need to include a drift or offset, because the aim is to fit the specific parabola in Figure 1 which has a small offset.
 - Standard techniques like stochastic volatility, rough volatility, or GARCH typically involve a minimum of four parameters when we include the drift (and these methods don't replicate q-variance anyway). That means you need to do something different.
 - The model should be T-invariant, so changing the period T should not give a very different result, either in terms of the q-variance plot or the distribution.
