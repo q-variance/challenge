@@ -14,8 +14,36 @@ Other entries have used a stochastic volatility approach, however the models eit
 
 Most entries have tackled the challenge by attempting to reverse-engineer the figure. A different approach was taken in an [entry](https://github.com/q-variance/challenge/tree/main/submissions/Kent) which showed that a preexisting model produced an approximate version of q-variance. While the model had more than three parameters, it was a rare example of a model which naturally produces the desired kind of behaviour without special recalibration.
 
-One thing raised by the competition is that entries which, on paper at least, should satisfy q-variance, often also turn out to be impossible to calibrate, without adding extra parameters to stabilize the model. The reason it turns out is that, given reasonable assumptions, any continuous-time model which satisfies q-variance also has infinite variance-of-variance, so is highly unstable.
+One thing raised by the competition is that entries which, on paper at least, should satisfy q-variance, often also turn out to be impossible to calibrate, without adding extra parameters to stabilize the model. The reason it turns out is that, given reasonable assumptions, any continuous-time model which satisfies q-variance also has infinite variance-of-variance, so is highly unstable (see technical explanation below).
 
-We therefore have no firm winner, but a number of close entries (Wilmott magazine to announce later). 
+None of the submissions managed to achieve accuracy using the competition limit of three parameters, but some came near using four. We therefore have no firm winner, but a number of close entries (Wilmott magazine to announce later). 
 
 Happy New Year!
+
+---
+
+**Q-variance makes classical models unstable**
+
+As seen with a number of entries, models which approximate q-variance are often quite unstable, so require extra parameters to limit fluctuations. One reason for this behaviour is that if we impose q-variance exactly, then the variance-of-variance for a classical model is undefined.
+
+To see this, suppose a classical continuous-time model represents the variance $$V$$ over a period $$T$$ as a random variable. Assume that $$z | V$$ is conditionally Gaussian, and apply Bayes' formula to obtain
+
+$$
+\mathbb{E}[V \mid z] = \frac{\int_0^\infty V  p(z \mid V) p(V) dV}{\int_0^\infty p(z \mid V) p(V) dV} = \frac{\int_0^\infty V^{1/2} e^{-z^2/(2V)} p(V) dV}{\int_0^\infty V^{-1/2} e^{-z^2/(2V)} p(V) dV}.
+$$
+
+If the density $$p(V)$$ decays exponentially or faster for large $$V$$ (as in classical diffusive stochastic volatility models), then $$\mathbb{E}[V\mid z]$$ grows subquadratically in $$z$$, so exact q-variance cannot hold. We therefore suppose instead that the density of $$V$$ decays with a regularly varying tail, so $$p(V)$$ varies with $$C V^{-1-\alpha}$$ as $$V \to \infty$$ for some $$C>0$$ and $$\alpha>0$$.
+
+For $$z \neq 0$$, make the change of variables $$V=z^2 u$$, yielding
+
+$$
+\mathbb{E}[V \mid z] = z^2 \frac{\int_0^\infty u^{1/2} e^{-1/(2u)} p(z^2 u) du}{\int_0^\infty u^{-1/2} e^{-1/(2u)} p(z^2 u) du} \sim k(\alpha) z^2
+$$
+
+where
+
+$$
+k(\alpha) = \frac{\int_0^\infty u^{-\alpha-1/2} e^{-1/(2u)} du}{\int_0^\infty u^{-\alpha-3/2} e^{-1/(2u)} du} = \frac{1}{2\left(\alpha - \frac{1}{2}\right)}.
+$$
+
+Exact q-variance requires the quadratic coefficient in $$z^2$$ to equal $$1/2$$, so $$k(\alpha)=1/2$$ and $$\alpha = 3/2$$. However, for a tail $$p(V)\sim C V^{-1-\alpha}$$ one has $$\mathbb{E}[V^2]<\infty$$ if and only if $$\alpha>2$$. Q-variance therefore places the model in a zone where the variance-of-variance diverges. 
