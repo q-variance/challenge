@@ -32,7 +32,7 @@ $$
 \mathbb{E}[V \mid z] = \frac{\int_0^\infty V  p(z \mid V) p(V) dV}{\int_0^\infty p(z \mid V) p(V) dV} = \frac{\int_0^\infty V^{1/2} e^{-z^2/(2V)} p(V) dV}{\int_0^\infty V^{-1/2} e^{-z^2/(2V)} p(V) dV}.
 $$
 
-If the density $$p(V)$$ decays exponentially or faster for large $$V$$ (as in classical diffusive stochastic volatility models), then $$\mathbb{E}[V\mid z]$$ grows subquadratically in $$z$$, so exact q-variance cannot hold. We therefore suppose instead that the density of $$V$$ decays with a regularly varying tail, so $$p(V)$$ varies with $$C V^{-1-\alpha}$$ as $$V \to \infty$$ for some $$C>0$$ and $$\alpha>0$$.
+If the density $$p(V)$$ decays exponentially or faster for large $$V$$ (as in classical diffusive stochastic volatility models), then $$\mathbb{E}[V\mid z]$$ grows subquadratically in $$z$$, so exact q-variance cannot hold. We therefore suppose instead that the density of $$V$$ decays with a regularly varying tail, so $$p(V)$$ varies with $$C V^{-1-\alpha}$$ as $$V \to \infty$$ for some $$C>0$$ and $$\alpha>0$$. This is the case for example for a GARCH(1,1) model, or when the variance is given by an inverse-gamma distribution.
 
 For $$z \neq 0$$, make the change of variables $$V=z^2 u$$, yielding
 
