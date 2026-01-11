@@ -20,6 +20,31 @@ To take part in the challenge, a suggested first step is to replicate the above 
 
 For questions on the competition, email admin@wilmott.com.
 
+> ## 🚀 Banner Competition update 11-01-2026
+> **Read this before submitting!**
+>
+> The challenge has been running for over a month and we now have a good number of entries.
+>
+> So far, none of the entries match the q-variance curve to the target accuracy using no more than three parameters. Note that the aim of the challenge is to match the curve in the figure, so at a minimum you need a parameter which controls the minimum volatility, and another to produce a small offset. That only gives you one extra parameter to play with.
+>
+> We are therefore going to make some suggestions about approaches.
+>
+> Inverse-gamma. We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory, the problem is trying to get a time series that matches it. This requires some kind of jump approach with another parameter (putting the total to four) that defines an inherent timescale related to the frequency of jumps (a problem since q-variance is time-invariant). The resulting model can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic.
+>
+> GARCH(1,1). You can get what seems to be a pretty good fit using this approach, but it requires four parameters just to get started: alpha, beta, xi, and a drift to match the offset. Matching q-variance again puts the parameters into an unstable regime with unbounded variance-of-variance, so the fit is sensitive to things like the simulation time, and you need extra parameters like a cap on volatility to stop so-called moment explosions.
+>
+> Rough volatility. This requires five parameters: a roughness index, leverage, vol-of-vol, initial variance, plus the drift to match the horizontal offset. It’s all going a bit Von Neumann’s elephant, and it still can’t match q-variance – which again is a basic empirical property of variance.
+>
+> So please don’t send more such models, unless you can think of some new spin which doesn’t just undercount the number of parameters.
+>
+> Because the goal may be unachievable – and also because we have noticed a tendency to game the challenge, for example by handpicking simulation times to achieve good results using unstable models – we are going to change the evaluation to more of a “beauty contest” approach where entries are rated according to their ability to converge to q-variance in the long-term (e.g. 1e6 days), but also work well for shorter simulations over reasonable simulation times like 10K days. In other words we are looking for realistic, transparent models that might actually be useful. Be sure to include some code (Python or preferably R, not Excel) so we can reproduce the results.
+>
+> In the meantime, we also hope this challenge leads to questions about the mindset in this field. Quant finance has usually been considered a “soft” science. This is why there isn’t one theory of volatility, there are by some counts over 50. It’s not just GARCH, it’s also ARCH, EGARCH, GJR-GARCH, APARCH, FIGARCH, HARCH. For stochastic volatility we have Heston, Hull–White SV, Stein–Stein, Scott, SABR, CEV volatility, 3/2 model, 4/2 model. In rough volatility, we can offer Rough Bergomi, Fractional stochastic volatility, Rough Heston, Multifractional volatility. Other classes include Jump models, Regime-Switching models, Agent-Based models, not to mention Machine-Learning Based models. There is a whole industry built around modelling volatility and coming up with new names and acronyms.
+>
+> This isn’t normal. But q-variance is not a soft constraint, it is a hard one. Time to winnow this list down a bit.
+>
+> Finally, in case you think there is no model which matches q-variance, there obviously is because the property was predicted using a model. It’s just that, by design, it doesn’t work in continuous time. See the references below.
+
 ## Repository Contents
 
 The repository contains:
@@ -30,6 +55,7 @@ The repository contains:
 - Dataset generator `code/data_loader_csv.py` to load a CSV file of model price data and generate a parquet file
 - Scoring engine `code/score_submission.py` for your model
 - Jupyter notebook `notebooks/qvariance_single.ipynb` showing how to compute q-variance for a single asset
+- A folder `submissions' with current entries
 
 Dataset columns are ticker (str), date (date), T (int), sigma (float, annualized vol), z (float, scaled log return). Due to file size limitations, the parquet file is divided into three parts. Combine them with the command:
 ```python
@@ -40,7 +66,7 @@ Python dependencies: pip install yfinance pandas numpy scipy matplotlib pyarrow
 
 ## Scoring the Challenge
 
-The challenge scores submissions on one global R² over the entire dataset. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
+The aim of the challenge is to replicate the empirical phenomenon of q-variance. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
 
 To get started, a good first step is to replicate the q-variance curve using `baseline/baseline_fit.py` with the supplied `dataset.parquet` file. You can also check out `notebooks/qvariance_single.ipynb` which shows how q-variance is computed for a single asset, in this case the S&P 500.
 
