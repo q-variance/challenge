@@ -162,6 +162,13 @@ Q: Sounds like quantum woo to me.
 
 A: ?
 
+Q: Hang on. Why do we need a continuous time model anyway? Don't we just need the price change distribution as a function of time?
+
+A: You need it for perfect hedging.
+
+Q: But everyone knows you can't perfectly hedge anyway! Due to things like the bid-ask spread ... Oh.
+
+
 ## Further Reading
 
 Wilmott P, Orrell D (2025) [Q-Variance: or, a Duet Concerning the Two Chief World Systems](Q-Variance_Wilmott_July2025.pdf). Wilmott 2025(138).
