@@ -156,7 +156,7 @@ A: Some great tries but no clear winner, see the summary [here](subsummary.md).
 
 Q: Okay, I'll bite. What is the quantum explanation?
 
-A: Price change is like stretching a spring. The linear restoring force gives you the square-root law of price impact. Integrating the force gives you the $z^2/2$ term in q-variance. But you need to use a probabilistic framework which accounts for dynamics. See sources below.
+A: Price change is like stretching a spring. The linear restoring force gives you the square-root law of price impact. Integrating the force gives you the $z^2/2$ term in q-variance. The model only has one parameter (the offset is a small error term). But you need to use a probabilistic framework which accounts for dynamics. See sources below.
 
 Q: Sounds like quantum woo to me.
 
@@ -167,6 +167,10 @@ Q: Hang on. Why do we need a continuous time model anyway? Don't we just need th
 A: You need it for perfect hedging.
 
 Q: But everyone knows you can't perfectly hedge anyway! Due to things like the bid-ask spread ... Oh.
+
+**Do say:** Quantum finance assumes that markets have a fundamental level of uncertainty.
+
+**Don't say:** Quantum finance is about tiny, tiny amounts of money.
 
 
 ## Further Reading
