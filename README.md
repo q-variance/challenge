@@ -166,10 +166,6 @@ A: You need it for perfect hedging.
 
 Q: But everyone knows you can't perfectly hedge anyway! Due to things like the bid-ask spread ... Oh.
 
-**Do say:** Quantum finance assumes that markets have a fundamental level of uncertainty.
-
-**Don't say:** Quantum finance? Is that about tiny, tiny amounts of money?
-
 
 ## Further Reading
 
