@@ -20,6 +20,29 @@ To take part in the challenge, a suggested first step is to replicate the above 
 
 For questions on the competition, email admin@wilmott.com.
 
+> ## Competition Update 11-01-2026
+> **Read this before submitting!**
+>
+> The challenge has been running for over a month and we now have a good number of entries.
+>
+> So far, none of the entries match the q-variance curve to the target accuracy using no more than three parameters. Note that the aim of the challenge is to match the curve in the figure, so at a minimum you need a parameter which controls the minimum volatility, and another to produce a small offset. That only gives you one extra parameter to play with.
+>
+> We are therefore going to make some suggestions about approaches.
+>
+> **Inverse-gamma.** We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory, the problem is trying to get a time series that matches it. This requires some kind of jump approach with another parameter (putting the total to four) that defines an inherent timescale related to the frequency of jumps (a problem since q-variance is time-invariant). The resulting model can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic.
+>
+> **GARCH(1,1).** You can get what seems to be a pretty good fit using this approach, but it requires four parameters just to get started: alpha, beta, xi, and a drift to match the offset. Matching q-variance again puts the parameters into an unstable regime with unbounded variance-of-variance, so the fit is sensitive to things like the simulation time, and you need extra parameters like a cap on volatility to stop so-called moment explosions.
+>
+> **Rough volatility.** This requires five parameters: a roughness index, leverage, vol-of-vol, initial variance, plus the drift to match the horizontal offset. It’s all going a bit [Von Neumann’s elephant](https://en.wikipedia.org/wiki/Von_Neumann%27s_elephant), and it still can’t match q-variance – which again is a basic empirical property of variance.
+>
+> So please don’t send more such models, unless you can think of some new spin which doesn’t just undercount the number of parameters.
+>
+> Because the goal may be unachievable – and also because we have noticed a tendency to game the challenge, for example by handpicking simulation times to achieve good results using unstable models – we are going to change the evaluation to more of a “beauty contest” approach where entries are rated according to their ability to converge to q-variance in the long-term (e.g. 1e6 days), but also work well for shorter simulations over reasonable simulation times like 10K days. In other words we are looking for realistic, transparent models that might actually be useful. Be sure to include some code (Python or preferably R, not Excel) so we can reproduce the results.
+>
+> In the meantime, we also hope this challenge leads to questions about the mindset in this field. Quant finance has usually been considered a “soft” science. This is why there isn’t one theory of volatility, there are by some counts over thirty. But q-variance is not a soft constraint, it is a hard one. Time to winnow the list down a bit.
+>
+> Finally, in case you think there is no model which matches q-variance, there obviously is because the property was predicted using a model. It’s just that, by design, it doesn’t work in continuous time. See the references below.
+
 ## Repository Contents
 
 The repository contains:
@@ -30,6 +53,7 @@ The repository contains:
 - Dataset generator `code/data_loader_csv.py` to load a CSV file of model price data and generate a parquet file
 - Scoring engine `code/score_submission.py` for your model
 - Jupyter notebook `notebooks/qvariance_single.ipynb` showing how to compute q-variance for a single asset
+- A folder `submissions' with current entries
 
 Dataset columns are ticker (str), date (date), T (int), sigma (float, annualized vol), z (float, scaled log return). Due to file size limitations, the parquet file is divided into three parts. Combine them with the command:
 ```python
@@ -40,7 +64,7 @@ Python dependencies: pip install yfinance pandas numpy scipy matplotlib pyarrow
 
 ## Scoring the Challenge
 
-The challenge scores submissions on one global R² over the entire dataset. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
+The aim of the challenge is to replicate the empirical phenomenon of q-variance. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
 
 To get started, a good first step is to replicate the q-variance curve using `baseline/baseline_fit.py` with the supplied `dataset.parquet` file. You can also check out `notebooks/qvariance_single.ipynb` which shows how q-variance is computed for a single asset, in this case the S&P 500.
 
@@ -66,7 +90,7 @@ To make your entry official:
 **Submission tips**
 - Read the [summary of previous submissions](subsummary.md) so you don't duplicate an existing approach.
 - Check your model is robust to things like the number of simulation steps or sample lengths, otherwise these are counted as parameters. The model data should converge to the parabola, not just match it for a particular choice of simulation time.
-- Something counts as a parameter if it is adjusted to fit the desired result, or if changing it within reasonable bounds affects the result. Please declare **all such parameters**, don't have an ad hoc number or adjustment somewhere in your code which affects the results but is not declared as a parameter. The test is not whether a number is explicitly optimized, it is whether it can be eliminated and the model still works.
+- Something counts as a parameter if it is adjusted to fit the desired result, or if changing it within reasonable bounds affects the result. Please declare **all such parameters**, don't have an ad hoc number or adjustment somewhere in your code which affects the results but is not declared as a parameter. The test is not whether a number is explicitly optimized, or is at its "default value", it is whether it can be eliminated and the model still works.
 - Parameters need to include a drift or offset, because the aim is to fit the specific parabola in Figure 1 which has a small offset of $z_0 = 0.021$. The minimum volatility should be $\sigma_0=0.259$.
 - Standard techniques like stochastic volatility, rough volatility, or GARCH typically involve a minimum of four parameters when we include the drift (and often more to ensure a stable solution for this problem). That means you need to do something different.
 - The model should be T-invariant, so changing the period T should not give a very different result, either in terms of the q-variance plot or the distribution.
@@ -130,11 +154,15 @@ A: Some great tries but no clear winner, see the summary [here](subsummary.md).
 
 Q: Okay, I'll bite. What is the quantum explanation?
 
-A: Price change is like pushing on a spring. The linear restoring force gives you the square-root law of price impact. Integrating the force gives you the $z^2/2$ term in q-variance. But you need to use a probabilistic framework which accounts for dynamics. See sources below.
+A: Price change is like stretching a spring. The linear restoring force gives you the square-root law of price impact. Integrating the force gives you the $z^2/2$ term in q-variance. The model only has one parameter (the offset is a small error term). But you need to use a probabilistic framework which accounts for dynamics. See sources below.
 
 Q: Sounds like quantum woo to me.
 
 A: ?
+
+Q: Hang on. Why do we need a continuous time model anyway? Don't we just need the price change distribution as a function of time?
+
+A: In theory you need it for perfect hedging, but in practice that is impossible due to things like the bid-ask spread. The situation may therefore resemble somthing like turbulent flow in physics, where we can model the statistical behaviour without reproducing individual trajectories. The aim of the challenge is to help answer that question.
 
 ## Further Reading
 
