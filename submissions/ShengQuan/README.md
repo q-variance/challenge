@@ -27,4 +27,4 @@ as well as four (4) free parameters:
 
 The shape parameter of the inverse gamma distribution is set to $\frac{3}{2}$ to yield the $\frac{1}{2}$ quadratic coefficient of the q-variance; the scale parameter $v_0$ of the inverse gamma distribution is directly related to the minimum volatility $\sigma_0$ of the q-variance: $v_0\approx \sigma_0^2$; the jump amplitude $\delta$ is a mechanism to generate skewness and a handle to the q-variance offset $z_0$; finally, the Poisson $\lambda$ regulates a slow volatility regime change so that the volatility persists over a time horizon over 26 weeks.
 
-The model construction is detailed in the attached document. The description is fully transparent and straightforward to implement. No code or simulated data is supplied at this time, pending internal compliance review.
+The model construction and the numerical results are detailed in the attached document. The description is fully transparent and straightforward to implement. No code or simulated data is supplied at this time, pending internal compliance review.
