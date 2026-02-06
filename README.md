@@ -133,7 +133,7 @@ A: Yes, price-change in the quantum model follows the q-distribution which is a 
 
 Q: How long a time series do we need?
 
-A: To reproduce Figure 1 you will need around 1e6 days. That works out to about 4K years of data. However it isn't very realistic if q-variance is only visible over extremely long time periods, because with stocks you can see it with less than 20 years of data. To test your model, divide the data into 500 segments, each in a column labelled "V1", "V2", etc., create your parquet file, and run `score_submission.py`. This will produce a plot like [Figure 3](Figure_3.png), where now the separate columns are treated as representing individual stocks. In general, the result should be robust to reasonable changes in simulation length.
+A: To reproduce Figure 1 you will need around 5e6 days. That works out to about 20K years of data. However it isn't very realistic if q-variance is only visible over extremely long time periods, because with stocks you can see it with less than 20 years of data. To test your model, divide the data into 500 segments, each in a column labelled "V1", "V2", etc., create your parquet file, and run `score_submission.py`. This will produce a plot like [Figure 3](Figure_3.png), where now the separate columns are treated as representing individual stocks. In general, the result should be robust to reasonable changes in simulation length.
 
 Q: Some parameters in my model were preset, do they still count towards the limit of three?
 
