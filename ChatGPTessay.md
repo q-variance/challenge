@@ -3,6 +3,8 @@
 
 **Written by ChatGPT in response to the prompt: "Please write an essay of about 500 words addressing this question: what does it mean that none of the conventional models of volatility can capture the basic property of q-variance?"**
 
+<img src="ChatImage.png" width="800">
+
 What does it mean if none of the conventional models of volatility can reproduce the basic empirical property of q-variance?
 
 To me, the most striking part is not even the modeling failure. It is the fact that such a simple, almost geometric empirical pattern could sit in plain sight for decades without becoming part of the standard volatility canon. Volatility has been one of the most studied objects in quantitative finance since the 1980s. Entire industries, thousands of papers, and countless models have been built around it. And yet q-variance suggests that there may be an elementary regularity in the data that none of the dominant frameworks naturally capture.
