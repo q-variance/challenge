@@ -176,6 +176,6 @@ Orrell D (2025) Quantum impact and the supply-demand curve. Philosophical Transa
 
 Orrell D (2026) [The Quantum Stock Market.](https://mitpress.mit.edu/9780262055987/the-quantum-stock-market/) MIT Press (in press).
 
-<!-- Orrell D (2026) Six Impossible Things About Finance. [SSRN preprint.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6140027) -->
+Orrell D (2026) A Finite-Time Constraint on Volatility, and the Limits of Continuous-Time Finance. [SSRN preprint.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6140027)
 
 Visit the [Qvar Shiny app](https://david-systemsforecasting.shinyapps.io/qvar/) to do more simulations.
