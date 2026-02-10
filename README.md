@@ -10,7 +10,7 @@ $\sigma^2(z) = \sigma_0^2 + \frac{(z-z_0)^2}{2}$
 
 where $z = x/\sqrt{T}$, and $x$ is the log price change over the period, adjusted for drift (the parameter $z_0$ accounts for small asymmetries). The figure above illustrates q-variance for stocks from the S&P 500, and periods $T$ of 1-26 weeks. Blue points are variance vs $z$ for individual periods, blue line is average variance as a function of $z$, red line is the q-variance curve. 
 
-Q-variance affects everything from option pricing to how we measure and talk about volatility. Read the [Q-Variance WILMOTT article](Q-Variance_Wilmott_July2025.pdf) for more details and examples. See the competition announcement (5-Dec-2025) in the WILMOTT forum [here](https://forum.wilmott.com/viewtopic.php?p=889508&sid=0eb1fdd23cee0e6824de7353248d2e22#p889503). For an update on submissions as of end-2025 see [here](subsummary.md).
+Q-variance affects everything from option pricing to how we measure and talk about volatility. Read the [Q-Variance WILMOTT article](Q-Variance_Wilmott_July2025.pdf) for more details and examples. See the competition announcement (5-Dec-2025) in the WILMOTT forum [here](https://forum.wilmott.com/viewtopic.php?p=889508&sid=0eb1fdd23cee0e6824de7353248d2e22#p889503). For a list of submissions see [here](subtable.md).
 
 To take part in the challenge, a suggested first step is to replicate the above figure using the code and market data supplied. Then repeat using simulated data from your model, and score it as described below.
 
@@ -88,12 +88,12 @@ To make your entry official:
 4. Open a Pull Request titled: "Submission: [Your Team Name]"
 
 **Submission tips**
-- Read the [summary of previous submissions](subsummary.md) so you don't duplicate an existing approach.
+- Read the [list of previous submissions](subtable.md) so you don't duplicate an existing approach.
 - Check your model is robust to things like the number of simulation steps or sample lengths, otherwise these are counted as parameters. The model data should converge to the parabola, not just match it for a particular choice of simulation time.
 - Something counts as a parameter if it is adjusted to fit the desired result, or if changing it within reasonable bounds affects the result. Please declare **all such parameters**, don't have an ad hoc number or adjustment somewhere in your code which affects the results but is not declared as a parameter. The test is not whether a number is explicitly optimized, or is at its "default value", it is whether it can be eliminated and the model still works. Examples include a shape factor chosen specifically to match q-variance, or a cap on variance to improve stability.
 - Parameters need to include a drift or offset, because the aim is to fit the specific parabola in Figure 1 which has a small offset of $z_0 = 0.021$. The minimum volatility should be $\sigma_0=0.259$.
 - Standard techniques like stochastic volatility, rough volatility, or GARCH typically involve a minimum of four parameters when we include the drift (and often more to ensure a stable solution for this problem). That means you need to do something different.
-- The model should be T-invariant, so changing the period T should not give a very different result, either in terms of the q-variance plot or the distribution.
+- The model should be T-invariant, so changing the period $T$ should not give a very different result, either in terms of the q-variance plot or the distribution.
 - Make sure that you submit a sample time series and the code to replicate the model, not just a parquet file and a plot.
 - Remember the parabola in Figure 1 matches real data, so to succeed your model will need to produce stable and realistic behaviour, otherwise changing internal numbers will affect the results and count as parameters. 
 
