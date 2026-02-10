@@ -13,6 +13,7 @@
 | 9 | tingjun | Tingjun | 5 | 2025-12-27 | GARCH(1,1), extra parameters to stabilize |
 | 10 | Kent | Kent Osband | sigma, mu, kappa, reset, offset | 2025-12-30 | Dividend risk, based on *Rationally Turbulent Expectations* |
 | 11 | aura | Aleh | 5+caps | 2026-1-5 | Produces plot with sigma=0 |
-| 12 | Paul Symonds | Paul Symonds and Claude | sigma, kappa, rho, shape 3/2, Zmax | 2026-2-5 | Grid acts to cap variance |
+| 12 | Pierre | Pierre | sigma, drift, xi | 2026-1-20 | Stochastic, poor fit|
+| 13 | Paul Symonds | Paul Symonds and Claude | sigma, kappa, rho, shape 3/2, Zmax | 2026-2-5 | Grid acts to cap variance |
 
 ---
