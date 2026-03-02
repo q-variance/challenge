@@ -4,8 +4,7 @@ AURA
 
 Description
 
-We model log-prices via a gated semimartingale: outside repricing the process follows a càdlàg semimartingale $U$, while during predictable repricing windows the underlying is 
-switched off and the log-price evolves by a finite-variation execution path. 
-For a single repricing event executed at constant rate and observed in two steps, realized variance satisfies $RV=\tfrac12 R^2$, implying $\widehat V=RV/T=\tfrac12 z^2$ and 
-hence a quadratic $q$-variance coefficient $q=0.5$. 
-Equal splitting (and thus $q=0.5$) may also arise from trading-time / time-zone or calendar timestamping, and should therefore be assessed separately from true execution mechanics.
+The study argues that the empirical regularity termed "q-variance"-a fixed-horizon relation between normalized realized log-returns and realized variance in which the slope coefficient is constrained exactly to 1/2-is a sampling-induced artefact of the close-to-close observation scheme rather than a fundamental market property.
+
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6323200
+
