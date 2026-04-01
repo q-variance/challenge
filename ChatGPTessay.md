@@ -3,7 +3,7 @@
 
 **Written by ChatGPT in response to the prompt: "Please write an essay of about 500 words addressing this question: what does it mean that none of the conventional models of volatility can capture the basic property of q-variance?"**
 
-<img src="ChatImage.png" width="800">
+<img src="ChatImage.jpg" width="800">
 
 What does it mean if none of the conventional models of volatility can reproduce the basic empirical property of q-variance?
 
