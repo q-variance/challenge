@@ -119,6 +119,10 @@ Q: Is q-variance a large effect?
 
 A: Yes, the minimum variance is about half the total variance so this is a large effect. If you are modelling variance then you do need to take q-variance into account.
 
+Q: The data supplied is for daily prices. Is q-variance an "artefact of the close-to-close observation scheme" as [one author](https://github.com/q-variance/challenge/tree/main/submissions/aura) claims?
+
+A: It is easily checked that it works fine for intraday prices – and for Bitcoin which doesn't even have a daily close.
+
 Q: Does q-variance have implications for quantitative finance?
 
 A: Yes, classical finance assumes a diffusive model for price change, but q-variance is a marker of a different kind of price dynamics that is shaped by transactions. Standard formulas such as Black-Scholes or the formula used to calculate VIX will therefore not work as expected.
