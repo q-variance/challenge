@@ -20,28 +20,20 @@ To take part in the challenge, a suggested first step is to replicate the above 
 
 For questions on the competition, email admin@wilmott.com.
 
-> ## Competition Update 11-01-2026
+> ## Competition Update April 2026
 > **Read this before submitting!**
 >
-> The challenge has been running for over a month and we now have a good number of entries.
+> The challenge has been running for several months and we now have a good number of entries.
 >
-> So far, none of the entries match the q-variance curve to the target accuracy using no more than three parameters. Note that the aim of the challenge is to match the curve in the figure, so at a minimum you need a parameter which controls the minimum volatility, and another to produce a small offset. That only gives you one extra parameter to play with.
+> So far, none of the entries match the q-variance curve to the target accuracy using no more than three parameters. Note that the aim of the challenge is to match the curve in the figure, so at a minimum you need a parameter which controls the minimum volatility, and another to produce a small offset. That only gives you one extra parameter to play with. Some notes on the ideas presented so far:
 >
-> We are therefore going to make some suggestions about approaches.
->
-> **Inverse-gamma.** We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory (see [notebook](https://github.com/q-variance/challenge/blob/main/notebooks/invgammavar.ipynb)), the problem is trying to get a time series that matches it. This requires some kind of e.g. jump approach with another parameter, and because the variance-of-variance is infinite for this distribution you need an extra parameter to cap volatility, taking the total to five. Even then it can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic.
+> **Inverse-gamma.** We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory (see [notebook](https://github.com/q-variance/challenge/blob/main/notebooks/invgammavar.ipynb)), the problem is trying to get a time series that matches it. This requires some kind of e.g. interval approach with another parameter, and because the variance-of-variance is infinite for this distribution you need an extra parameter to cap volatility, taking the total to five. Even then it can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic.
 >
 > **GARCH(1,1).** You can get what seems to be a pretty good fit using this approach, but it requires four parameters just to get started: alpha, beta, xi, and a drift to match the offset. Matching q-variance again puts the parameters into an unstable regime with unbounded variance-of-variance, so the fit is sensitive to things like the simulation time, and you need extra parameters like a cap on volatility to stop so-called moment explosions. Of course GARCH is a discrete-time approach, but the sensitivity only increases when you move to continuous-time COGARCH.
 >
 > **Rough volatility.** This requires a roughness index, leverage, vol-of-vol, initial variance, plus maybe a drift to match the horizontal offset. It’s all going a bit [Von Neumann’s elephant](https://en.wikipedia.org/wiki/Von_Neumann%27s_elephant), and it still can’t match q-variance – which again is a basic empirical property of variance.
 >
-> So please don’t send more such models, unless you can think of some new spin which doesn’t just undercount the number of parameters.
->
-> Because the goal may be unachievable, we are going to change the evaluation to more of a “beauty contest” approach where entries are rated according to their ability to converge to q-variance in the long-term (e.g. 1e6 days), but also work well for shorter simulations over reasonable simulation times like 10K days. In other words we are looking for realistic, transparent models that might actually be useful. Be sure to include some code (Python or preferably R, not Excel) so we can reproduce the results.
->
-> In the meantime, we also hope this challenge leads to questions about the mindset in this field. Quant finance has usually been considered a “soft” science. This is why there isn’t one theory of volatility, there are by some counts over thirty. But q-variance is not a soft constraint, it is a hard one. Time to winnow the list down a bit.
->
-> Finally, in case you think there is no model which matches q-variance, there obviously is because the property was predicted using a model. It’s just that, by design, it works not in continuous time, but in finite time – rather like variance, which is also only defined over finite times as well. See the references below.
+> So matching q-variance with a continuous-time model that uses no more than three parameters, including the offset, will require a non-standard approach. Note that the property was predicted by a model which works not in continuous time, but in finite time – rather like variance, which is also only defined over finite times as well. See the references below.
 
 ## Repository Contents
 
@@ -52,7 +44,7 @@ The repository contains:
 - Figures showing q-variance and R² value for the actual data
 - Dataset generator `code/data_loader_csv.py` to load a CSV file of model price data and generate a parquet file
 - Scoring engine `code/score_submission.py` for your model
-- Jupyter notebooks `notebooks/qvariance_single.ipynb` showing how to compute q-variance for a single asset, and `notebooks/invgammavar.ipynb` to illustrate the inverse-gamma model with no time series
+- a folder `notebooks` with Jupyter notebooks, including `qvariance_single.ipynb` which shows how to compute q-variance for a single asset, `invgammavar.ipynb` to illustrate the inverse-gamma model with no time series, and `SP500_2008-2021_30m.ipynb` to check q-variance for intraday prices with half-hour time increments
 - A folder `submissions` with current entries
 
 Dataset columns are ticker (str), date (date), T (int), sigma (float, annualized vol), z (float, scaled log return). Due to file size limitations, the parquet file is divided into three parts. Combine them with the command:
@@ -105,7 +97,7 @@ A: No, a stylized fact is a general observation about market data, but q-varianc
 
 Q: Is it only noticeable over very long time series, or by averaging the results from hundreds of different stocks?
 
-A: No, you can see q-variance over normal time scales such as 20 years of data. It holds not just for stocks, but even for things like Bitcoin or bond yields (see the [article](Q-Variance_Wilmott_July2025.pdf)). If a model of it only works over much longer simulations then it will be sensitive to small changes (e.g. to the exact simulation time) and it also won't be realistic.
+A: No, you can see q-variance over normal time scales such as 20 years of data. It holds not just for stocks, but even for things like Bitcoin or bond yields (see the [article](Q-Variance_Wilmott_July2025.pdf)). If a model of it only works over much longer simulations then it will be sensitive to small changes (e.g. to the exact simulation time) and it also won't be realistic. An example is the [inverse gamma model](notebooks/invgammavar.ipynb).
 
 Q: Is q-variance about implied volatility?
 
@@ -121,7 +113,7 @@ A: Yes, the minimum variance is about half the total variance so this is a large
 
 Q: The data supplied is for daily prices. Could q-variance just be an artefact of using the closing price?
 
-A: It is easily checked that q-variance applies to intraday prices (see e.g. [here](https://www.kaggle.com/datasets/gratefuldata/intraday-stock-data-1-min-sp-500-200821) for sample data), and to Bitcoin which doesn't even have a daily close.
+A: It is easily checked that q-variance applies to intraday prices (see the [notebook](notebooks/SP500_2008-2021_30m.ipynb)), and to Bitcoin which doesn't even have a daily close.
 
 Q: Does q-variance have implications for quantitative finance?
 
