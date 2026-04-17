@@ -27,13 +27,13 @@ For questions on the competition, email admin@wilmott.com.
 >
 > So far, none of the entries match the q-variance curve to the target accuracy using no more than three parameters. Note that the aim of the challenge is to match the curve in the figure, so at a minimum you need a parameter which controls the minimum volatility, and another to produce a small offset. That only gives you one extra parameter to play with. Some notes on the ideas presented so far:
 >
-> **Inverse-gamma.** We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory (see [notebook](https://github.com/q-variance/challenge/blob/main/notebooks/invgammavar.ipynb)), the problem is trying to get a time series that matches it. This requires some kind of e.g. interval approach with another parameter, and because the variance-of-variance is infinite for this distribution you need an extra parameter to cap volatility, taking the total to five. Even then it can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic.
+> **Inverse-gamma.** We have had several entries which work by drawing a stochastic volatility from an inverse-gamma distribution. Starting parameters are shape factor and rate for the distribution, plus the drift. Setting the shape factor to 3/2 reproduces q-variance perfectly in theory, the problem is trying to get a time series that matches it. This requires some kind of e.g. interval approach with another parameter, and because the variance-of-variance is infinite for this distribution you need an extra parameter to cap volatility, taking the total to five. Even then it can take thousands of years to converge, and the log price change distribution is also too fat-tailed to be realistic. See this [notebook](https://github.com/q-variance/challenge/blob/main/notebooks/invgammavar.ipynb) for a demonstration of the inverse-gamma model. For a discussion of this and other methods including GARCH, see this [presentation](https://www.youtube.com/watch?v=SCovM9xGYfI) from a Bloomberg team.
 >
-> **GARCH(1,1).** You can get what seems to be a pretty good fit using this approach, but it requires four parameters just to get started: alpha, beta, xi, and a drift to match the offset. Matching q-variance again puts the parameters into an unstable regime with unbounded variance-of-variance, so the fit is sensitive to things like the simulation time, and you need extra parameters like a cap on volatility to stop so-called moment explosions. Of course GARCH is a discrete-time approach, but the sensitivity only increases when you move to continuous-time COGARCH.
+> **GARCH(1,1).** You can get what seems to be a pretty good fit using this approach, but it requires four parameters just to get started: alpha, beta, xi, and a drift to match the offset. Matching q-variance again puts the model into an unstable regime with unbounded variance-of-variance, so the fit is sensitive to things like the simulation time, and you need something like a cap on volatility to stop so-called moment explosions, bringing the total number of parameters again to five. Of course GARCH is a discrete-time approach, but the sensitivity only increases when you move to continuous-time COGARCH.
 >
 > **Rough volatility.** This requires a roughness index, leverage, vol-of-vol, initial variance, plus maybe a drift to match the horizontal offset. It’s all going a bit [Von Neumann’s elephant](https://en.wikipedia.org/wiki/Von_Neumann%27s_elephant), and it still can’t match q-variance – which again is a basic empirical property of variance.
 >
-> So matching q-variance with a continuous-time model that uses no more than three parameters, including the offset, will require a non-standard approach. Note that the property was predicted by a model which works not in continuous time, but in finite time – rather like variance, which is also only defined over finite times as well. See the references below.
+> So matching q-variance with a continuous-time model that uses no more than three parameters, including the offset, will require a non-standard approach. Note that the property was predicted by a model which works not in continuous time, but in finite time – rather like variance, which is only defined over finite times as well. See the references below.
 
 ## Repository Contents
 
@@ -51,8 +51,6 @@ Dataset columns are ticker (str), date (date), T (int), sigma (float, annualized
 ```python
 df = pd.concat([pd.read_parquet("dataset_part1.parquet"),pd.read_parquet("dataset_part2.parquet"),pd.read_parquet("dataset_part3.parquet")])
 ```
-
-Python dependencies: pip install yfinance pandas numpy scipy matplotlib pyarrow
 
 ## Scoring the Challenge
 
