@@ -4,7 +4,7 @@
 
 Can any continuous-time model, using no more than three free parameters, reproduce what may be the most **clear-cut empirical property of variance**, namely the parabolic relationship known as **q-variance**?
 
-This states that, for a sufficiently large data set of stock prices, variance over a period $T$ is well-approximated by the equation
+This states that, for a sufficiently large data set of stock prices, the expected variance over a period $T$ is well-approximated by the equation
 
 $\sigma^2(z) = \sigma_0^2 + \frac{(z-z_0)^2}{2}$
 
@@ -112,6 +112,10 @@ A: Yes, the minimum variance is about half the total variance so this is a large
 Q: The data supplied is for daily prices. Could q-variance just be an artefact of using the closing price?
 
 A: It is easily checked that q-variance applies to intraday prices (see the [notebook](notebooks/SP500_2008-2021_30m.ipynb)), and to Bitcoin which doesn't even have a daily close.
+
+Q: Figure 1 shows binned variance versus $z$. Why not just do a linear regression of variance versus $z^2$ to estimate the quadratic coefficient?
+
+A: Q-variance is a statement about the conditional expectation function $\mathbb{E}[v(T)\mid z]$, in other words the expected variance given a value of $z$. Ordinary least squares regression of $v$ on $z^2$ does not test this claim directly; rather, it estimates the best linear predictor of $v$ in terms of $z^2$, characterized by orthogonality conditions. Nonparametric methods (such as binning or kernel smoothing) are therefore more appropriate for directly assessing the functional form of $\mathbb{E}[v(T)\mid z]$. As an example of how linear regression can give misleading results, see the [inverse-gamma notebook](notebooks/invgammavar.ipynb).
 
 Q: Does q-variance have implications for quantitative finance?
 
