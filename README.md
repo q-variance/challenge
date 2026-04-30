@@ -44,7 +44,7 @@ The repository contains:
 - Figures showing q-variance and R² value for the actual data
 - Dataset generator `code/data_loader_csv.py` to load a CSV file of model price data and generate a parquet file
 - Scoring engine `code/score_submission.py` for your model
-- a folder `notebooks` with Jupyter notebooks, including `qvariance_single.ipynb` which shows how to compute q-variance for a single asset, `invgammavar.ipynb` to illustrate the inverse-gamma model with no time series, and `SP500_2008-2021_30m.ipynb` to check q-variance for intraday prices with half-hour time increments
+- a folder `notebooks` with Jupyter notebooks, including `plotqvariance.ipynb` which shows how to compute q-variance for a single asset, `invgammavar.ipynb` to illustrate the inverse-gamma model with no time series, and `SP500_2008-2021_30m.ipynb` to check q-variance for intraday prices with half-hour time increments
 - A folder `submissions` with current entries
 
 Dataset columns are ticker (str), date (date), T (int), sigma (float, annualized vol), z (float, scaled log return). Due to file size limitations, the parquet file is divided into three parts. Combine them with the command:
@@ -56,7 +56,7 @@ df = pd.concat([pd.read_parquet("dataset_part1.parquet"),pd.read_parquet("datase
 
 The aim of the challenge is to replicate the empirical phenomenon of q-variance. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
 
-To get started, a good first step is to replicate the q-variance curve using `baseline/baseline_fit.py` with the supplied `dataset.parquet` file. You can also check out `notebooks/qvariance_single.ipynb` which shows how q-variance is computed for a single asset, in this case the S&P 500.
+To get started, a good first step is to replicate the q-variance curve using `baseline/baseline_fit.py` with the supplied `dataset.parquet` file. You can also check out `notebooks/plotqvariance.ipynb` which shows how q-variance is computed for a single asset, in this case the S&P 500.
 
 Next, simulate a long series of daily prices using your model, and save as a CSV file with a column named 'Price'. Use `data_loader_csv.py` to compute the variances $\sigma^2(z)$ for each window and output your own `dataset.parquet` file. To match the benchmark you will want a long simulation of around 5e6 days. Also save a shorter version with 100K rows that can be easily checked.
 
