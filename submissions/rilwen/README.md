@@ -1,8 +1,8 @@
-# Submission: Rank-truncated inverse-gamma multifractal q-variance model
+# Submission: Rank-truncated inverse-gamma multifractal q-variance 
 
 ## Team name
 
-TBD / Rilwen
+Rilwen
 
 ## Short summary
 
@@ -213,6 +213,7 @@ Distribution fit:
 σ₀ = 0.2011
 zoff = 0.0341
 R² = 0.9967
+```
 
 ## Scorer figures
 
