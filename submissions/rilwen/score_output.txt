@@ -1,0 +1,19 @@
+Official score_submission.py output
+
+3854413 windows
+z has NaNs: 0
+
+Pooled q-variance score:
+σ₀ = 0.2586  zoff = 0.0214  R² = 0.9994
+
+Per-horizon diagnostics:
+T = 5   σ₀ = 0.2586  zoff = 0.0214  R² = 0.9250
+T = 10  σ₀ = 0.2586  zoff = 0.0214  R² = 0.9961
+T = 20  σ₀ = 0.2586  zoff = 0.0214  R² = 0.9959
+T = 40  σ₀ = 0.2586  zoff = 0.0214  R² = 0.9790
+T = 80  σ₀ = 0.2586  zoff = 0.0214  R² = 0.9640
+
+Distribution fit:
+σ₀ = 0.2011
+zoff = 0.0341
+R² = 0.9967
