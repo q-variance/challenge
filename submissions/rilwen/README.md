@@ -1,8 +1,8 @@
-# Submission: Rank-truncated inverse-gamma multifractal q-variance model
+# Submission: Rank-truncated inverse-gamma multifractal q-variance 
 
 ## Team name
 
-TBD / Rilwen
+Rilwen
 
 ## Short summary
 
@@ -10,7 +10,11 @@ This submission is a three-parameter, competition-facing model designed to repro
 
 The model is best described as a **rank-truncated inverse-gamma multifractal-style volatility model with a martingale-corrected skew transform**.
 
-It is not intended to reproduce every detail of the empirical per-horizon family of parabolas. The empirical diagnostics suggest that the real data have a stable curvature \(B_T\) and a horizon-dependent centre \(c_T\), but the competition target is the pooled q-variance curve. This model is therefore deliberately compressed toward the challenge target.
+It is not intended to reproduce every detail of the empirical per-horizon family of parabolas. The empirical diagnostics suggest that the real data have a stable curvature $B_T$ and a horizon-dependent centre $c_T$. The fitted centre $c_T$ rises with horizon. The trend is almost identical whether $B_T$ is freely fitted or fixed at $B=0.5$, so the effect is not caused by a $B/c$ fitting tradeoff.
+
+![Empirical $c_T$ by horizon](figures/Figure_5.png)
+
+However, the competition target is the pooled q-variance curve.  This model is therefore deliberately compressed toward the challenge target.
 
 ## Parameters
 
@@ -45,7 +49,7 @@ Let
 \omega_t = \sum_j w_j X_t^{(\tau_j)}
 ```
 
-where \(X_t^{(\tau_j)}\) are fixed AR/OU-like Gaussian memory factors over a log-spaced grid of time scales
+where $X_t^{(\tau_j)}$ are fixed AR/OU-like Gaussian memory factors over a log-spaced grid of time scales
 
 ```math
 \tau_j \in [1,252].
@@ -57,7 +61,7 @@ The weights are fixed as
 w_j \propto \sqrt{\tau_j}.
 ```
 
-The latent Gaussian field is converted into a finite-sample rank variable. Let \(R_t\) be the empirical rank of \(\omega_t\) among the generated path values. Then
+The latent Gaussian field is converted into a finite-sample rank variable. Let $R_t$ be the empirical rank of \$omega_t$ among the generated path values. Then
 
 ```math
 u_t^{rank} = \frac{R_t+1/2}{N}.
@@ -127,14 +131,14 @@ The empirical data show an almost parabolic relationship between realised varian
 \sigma_T^2(z)=a_T+B_T(z-c_T)^2.
 ```
 
-In per-horizon diagnostics, \(B_T\) is fairly stable and close to \(0.5\), while \(c_T\) drifts with horizon. This suggests two pieces:
+In per-horizon diagnostics, $B_T$ is fairly stable and close to 0.5, while $c_T$ drifts with horizon. This suggests two pieces:
 
-1. a volatility-mixture/intermittency mechanism for the stable curvature \(B_T\);
+1. a volatility-mixture/intermittency mechanism for the stable curvature $B_T$;
 2. a signed leverage/asymmetry mechanism for the centre shift.
 
 The inverse-gamma multifractal-style field is used for the curvature. The skew transform is used to generate the small pooled offset of the q-variance curve.
 
-The model submitted here focuses on the official pooled challenge target rather than the full empirical \(c_T\) surface.
+The model submitted here focuses on the official pooled challenge target rather than the full empirical $c_T$ surface.
 
 ## Reproduction
 
@@ -213,6 +217,7 @@ Distribution fit:
 σ₀ = 0.2011
 zoff = 0.0341
 R² = 0.9967
+```
 
 ## Scorer figures
 
