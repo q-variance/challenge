@@ -10,7 +10,11 @@ This submission is a three-parameter, competition-facing model designed to repro
 
 The model is best described as a **rank-truncated inverse-gamma multifractal-style volatility model with a martingale-corrected skew transform**.
 
-It is not intended to reproduce every detail of the empirical per-horizon family of parabolas. The empirical diagnostics suggest that the real data have a stable curvature $B_T$ and a horizon-dependent centre $c_T$, but the competition target is the pooled q-variance curve. This model is therefore deliberately compressed toward the challenge target.
+It is not intended to reproduce every detail of the empirical per-horizon family of parabolas. The empirical diagnostics suggest that the real data have a stable curvature $B_T$ and a horizon-dependent centre $c_T$. The fitted centre c_T rises with horizon. The trend is almost identical whether B_T is freely fitted or fixed at B=0.5, so the effect is not caused by a B/c fitting tradeoff.
+
+![Empirical $c_T$ by horizon](figures/Figure_5.png)
+
+However, the competition target is the pooled q-variance curve.  This model is therefore deliberately compressed toward the challenge target.
 
 ## Parameters
 
