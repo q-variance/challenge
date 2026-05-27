@@ -1,8 +1,8 @@
 # List of entries
 
-| # | Entry | Author | Parameters | Date | Notes |
+| # | Entry | Author | Parameters | Date yyyy-mm-dd | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | stoch vol | Grok | 5 | 2025-11-30 | Thank you for playing |
+| 1 | stoch vol | Grok AI | 5 | 2025-11-30 | Thank you for playing |
 | 2 | simu.ai | Thijs | $\sigma$, drift, shape 3/2, samp rate | 2025-12-11 | Inverse-gamma, regime switching |
 | 3 | tags | Edouard Talent | $\sigma$, drift, shape 3/2 | 2025-12-14 | Inverse-gamma |
 | 4 | --- | Aleh | $\sigma$, drift, shape 3/2, stress factor | 2025-12-14 | Inverse-gamma |
@@ -14,6 +14,7 @@
 | 10 | Kent | Kent Osband | sigma, mu, kappa, reset, offset | 2025-12-30 | Dividend risk, based on *Rationally Turbulent Expectations* |
 | 11 | aura | Aleh | 5+caps | 2026-1-5 | Produces plot with sigma=0 |
 | 12 | Pierre | Pierre | sigma, drift, xi | 2026-1-20 | Stochastic, poor fit|
-| 13 | Paul Symonds | Paul Symonds and Claude | sigma, kappa, rho, shape 3/2, Zmax | 2026-2-5 | Grid acts to cap variance |
+| 13 | Paul Symonds | Paul Symonds and Claude AI | sigma, kappa, rho, shape 3/2, Zmax | 2026-2-5 | Inverse-gamma, grid acts to cap vol |
+| 14 | Rilwen | Rilwen | alpha, beta, eta, KERNEL_POWER, vol cap | 2026-5-10 | Inverse-gamma with vol cap|
 
 ---
