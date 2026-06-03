@@ -119,17 +119,17 @@ A: The q-variance hypothesis concerns the conditional expectation $\mathbb{E}[v(
 which is the standard estimator of the conditional expectation $\mathbb{E}[v(T)\mid z = z_k]$. This averaging is essential, as individual realizations $v_i$ are highly variable, with substantial dispersion even for fixed $z$. The binning procedure reduces this noise by a factor proportional to $1/n_k$, yielding a stable estimate of the state-dependent variance. By contrast, a regression of $v$ on $z^2$ operates directly on the noisy individual observations,
 $v_i = a + b z_i^2 + \varepsilon_i$, and therefore attempts to infer the conditional expectation indirectly through a parametric fit. While such a regression is useful for testing the restriction $b = 1/2$, it does not explicitly perform the averaging required to estimate $\mathbb{E}[v(T)\mid z]$. Thus, binning and regression serve different purposes: binning provides a direct and low-noise estimator of the variance in each state, while regression tests whether these state-dependent averages are consistent with the quadratic form $\sigma^2 + \tfrac12 z^2$. An example of how linear regression can give misleading results is provided by the [inverse-gamma notebook](notebooks/invgammavar.ipynb), where the binned curve confirms that the system produces q-variance, as it does by design, but the linear regression is dominated by extreme tail events. Results can be improved by removing points with $|z| > 0.6$, consistent with the fact that q-variance is based on a first-order approximation to the underlying dynamics (and the same as the horizontal axis limits in e.g. [Figure 1](Figure_1.png)). [Figure 6](Figure_6.png) and [Figure 7](Figure_7.png) show the linear regression for the S\&P 500 stocks data with this filter applied (removing 7 percent of points), the linear coefficient of 0.503 is near 0.5 as expected.
 
-Q: Does q-variance have implications for quantitative finance?
-
-A: Yes, classical finance assumes a diffusive model for price change, but q-variance is a marker of a different kind of price dynamics that is shaped by transactions. Standard formulas such as Black-Scholes or the formula used to calculate VIX will therefore not work as expected.
-
 Q: How does q-variance vary over different time periods, or from stock to stock?
 
-A: In theory the curve should be time-invariant, though in practice there is a small degree of variation with period length, see [Figure 2](Figure_2.png). The results for individual stocks are of course noisier and have a different minimum volatility as shown in [Figure 3](Figure_3.png), but taking the average variance over a number of stocks smooths out this noise. The curve is based on a first-order approximation to dynamics, and can hold less well for example when volatility is very low. You can experiment further using the [Qvar Shiny app](https://david-systemsforecasting.shinyapps.io/qvar/).
+A: In theory the curve should be time-invariant, though in practice there is a small degree of variation with period length, see [Figure 2](Figure_2.png). The results for individual stocks are of course noisier and have a different minimum volatility as shown in [Figure 3](Figure_3.png), but taking the average variance over a number of stocks smooths out this noise. The curve is based on a first-order approximation to dynamics, and can hold less well for example when volatility is very low. This is often the case with index data, which represents an average of stock prices. This suppresses the variance and means you are trying to fit a flattened curve. You can experiment further using the [Qvar Shiny app](https://david-systemsforecasting.shinyapps.io/qvar/).
 
 Q: Is q-variance related to the price-change distribution over a period?
 
 A: Yes, price-change in the quantum model follows the q-distribution which is a particular time-invariant, Poisson-weighted sum of Gaussians (see further reading below). [Figure 4](Figure_4.png) compares the q-distribution with the average distribution over the S&P 500 stocks. The time-invariance is illustrated in [Figure 5](Figure_5.png) for different periods $T$.
+
+Q: Does q-variance have implications for quantitative finance?
+
+A: Yes, classical finance assumes a diffusive model for price change, but q-variance is a marker of a different kind of price dynamics that is shaped by transactions. Standard formulas such as Black-Scholes or the formula used to calculate VIX will therefore not work as expected.
 
 Q: How long a time series do we need?
 
