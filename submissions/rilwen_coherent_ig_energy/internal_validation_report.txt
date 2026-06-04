@@ -1,0 +1,21 @@
+Internal validation notes
+=========================
+
+Model: coherent inverse-chi-square Hermite-energy model
+Parameters:
+  beta_mult = 1.719800
+  memory    = 15.275991
+  eta       = 0.498969
+
+Interface smoke test:
+  Generated variance_timeseries_100k.csv with one column named Price.
+  The official-style loader found 77,073 clean windows and z NaNs = 0.
+  Headline score at n=100,000 is not expected to be stable; observed R2 = 0.980491.
+
+Full-length check using official-style data_loader/score logic in this workspace:
+  n = 5,000,000 daily returns
+  seed = 5
+  clean windows = 3,854,413
+  pooled fixed-parabola R2 over |z| < 0.6 = 0.996826
+
+The full-length check was performed with a local no-plot implementation of the public data_loader_csv.py/score_submission.py logic. The exact public scripts should be run in the challenge folder before final submission.
