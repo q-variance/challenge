@@ -1,0 +1,30 @@
+n daily returns = 5000000
+seed = 1
+mode = cos2
+beta_mult = 2.645106721716812
+g = 1.68520494798523
+eta = 0.2341884778705525
+clean non-overlapping windows = 3854413
+pooled fixed-parabola R2 over |z| < 0.6 = 0.995388
+
+Robust optimisation summary from 5M rerank over 9 seeds:
+fixed_mean = 0.9954022513
+fixed_min  = 0.9950290953
+fixed_std  = 0.0002934915
+
+Per-T diagnostic R2 over |z| < 1.0, delz=0.1:
+T=5: 0.926637
+T=10: 0.929214
+T=20: 0.976566
+T=40: 0.971171
+T=80: 0.407085
+
+Z-range sensitivity:
+ zmax  pooled_fixed_R2  n_bins  mean_perT_R2  worst_perT_R2  std_perT_R2
+  0.3         0.952656      12    -14.436591     -60.275585    23.103257
+  0.4         0.979536      16     -2.775937     -13.758819     5.539028
+  0.5         0.991385      20     -0.275472      -3.983056     1.869913
+  0.6         0.995388      24      0.498196      -0.936018     0.723748
+  0.7         0.996416      28      0.700279      -0.210072     0.457101
+  0.8         0.997271      32      0.806955       0.249453     0.279723
+  1.0         0.998020      40      0.840306       0.401543     0.220321
