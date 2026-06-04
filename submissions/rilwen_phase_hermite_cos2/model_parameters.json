@@ -1,0 +1,10 @@
+{
+  "model": "cos2_phase_hermite_oscillator",
+  "mode": "cos2",
+  "beta_mult": 2.645106721716812,
+  "g": 1.68520494798523,
+  "eta": 0.2341884778705525,
+  "default_seed": 1,
+  "default_full_n": 5000000,
+  "sample_n": 100000
+}
