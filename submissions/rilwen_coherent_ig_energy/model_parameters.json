@@ -1,0 +1,9 @@
+{
+  "model": "coherent_inverse_chisquare_hermite_energy",
+  "beta_mult": 1.719800,
+  "memory": 15.275991,
+  "eta": 0.498969,
+  "default_seed": 5,
+  "default_full_n": 5000000,
+  "sample_n": 100000
+}
