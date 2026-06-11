@@ -77,15 +77,19 @@ and returns are generated as
 r_t = sqrt(beta_mult * sigma0^2 * A_t / 252) * eps_t
 ```
 
-## Parameter count
+## Market interpretation
 
-The model has exactly three numerical parameters:
+The model can be read as a simple market-state model. Prices do not move only because of today’s random shock; they move inside a market environment that remembers recent pressure, activity, and imbalance.
 
-```text
-beta_mult, memory, eta
-```
+Each daily innovation is split into two parts. One part measures how intense the day is, regardless of direction: a quiet day, an ordinary day, or a high-information day. The other part keeps the sign of the move: whether the pressure is upward or downward. The hidden bath is a persistent memory of these recent signed and unsigned shocks.
 
-There are no separately fitted shape parameters, cutoffs, caps, lookup tables, horizon-specific adjustments, or hidden calibration constants. The equations above are the model definition.
+This hidden state represents market activity or pressure. When the state is high, the market is more active and daily variance is higher. When the state is low, the market is quieter. The parameter `memory` controls how long this state persists, `eta` controls how strongly it affects volatility, and `beta_mult` sets the overall variance scale.
+
+The noncommutative/order-flow part means that the order of events matters. A large activity shock followed by directional pressure is not treated as identical to directional pressure followed by a large activity shock. This is meant to capture a simple market fact: volatility, liquidity, and directional pressure do not commute in real trading. The same ingredients can have different effects depending on their sequence.
+
+This produces q-variance because the endpoint move over a window and the realised variance inside that window are driven by the same persistent hidden state. A large endpoint move is therefore more likely to have occurred during a period of elevated market activity, which raises the conditional realised variance. The model is not just fitting a static parabola; it generates full price paths whose realised variance and endpoint displacement are coupled through a persistent market state.
+
+In this interpretation, the official q-variance parabola is the pooled statistical signature, while the model is a possible dynamic mechanism behind it.
 
 ## Official score
 
@@ -100,11 +104,11 @@ This is the result intended for the challenge ranking.
 
 ## T-invariance and empirical window dependence
 
-The fixed q-variance parabola is T-invariant by construction. Empirically, however, its fit varies substantially across individual window lengths. The proposed process gives a more stable per-window empirical fit.
+David Orrell's fixed q-variance parabola is T-invariant by construction. Empirically, however, its fit varies substantially across individual window lengths. The proposed process gives a more stable per-window empirical fit.
 
 ### Central range: |z| < 0.6
 
-| T | model vs empirical | fixed parabola vs empirical | model gain |
+| T | model vs empirical | Orrell's parabola vs empirical | model gain |
 |---:|---:|---:|---:|
 | 5 | 0.978292 | 0.739738 | 0.238555 |
 | 10 | 0.981181 | 0.977943 | 0.003238 |
@@ -115,7 +119,7 @@ The fixed q-variance parabola is T-invariant by construction. Empirically, howev
 
 Summary across all T slices:
 
-| metric | model | fixed parabola |
+| metric | model | Orrell's parabola |
 |---|---:|---:|
 | mean per-T R² | 0.974796 | 0.885335 |
 | min per-T R² | 0.966724 | 0.739738 |
@@ -137,7 +141,7 @@ Selected q-variance slices:
 
 ### Wider robustness range: |z| < 1.0
 
-| T | model vs empirical | fixed parabola vs empirical | model gain |
+| T | model vs empirical | Orrell's parabola vs empirical | model gain |
 |---:|---:|---:|---:|
 | 5 | 0.986482 | 0.879179 | 0.107303 |
 | 10 | 0.985774 | 0.988109 | -0.002335 |
@@ -148,7 +152,7 @@ Selected q-variance slices:
 
 Summary across all T slices:
 
-| metric | model | fixed parabola |
+| metric | model | Orrell's parabola |
 |---|---:|---:|
 | mean per-T R² | 0.965389 | 0.942759 |
 | min per-T R² | 0.933024 | 0.879179 |
