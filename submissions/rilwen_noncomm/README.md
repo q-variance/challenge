@@ -1,49 +1,52 @@
 # Three-parameter noncommutative bath model for q-variance
 
-This submission uses a three-parameter stochastic process for generating price paths with q-variance structure. The model is a non-inverse-gamma hidden-activity bath with order-flow corrections.
+This submission gives a **three-parameter path generator** for the q-variance challenge. The model is designed to produce a full price path, not only a static fitted curve.
 
-Current submitted parameter set:
+The submitted parameter set is:
 
 | parameter | value |
 |---|---:|
-| `mode` | `sym_neg_tanh` |
 | `beta_mult` | 2.028391 |
 | `memory` | 110.393674 |
 | `eta` | 1.091468 |
 
-Current 5M local official-target optimisation:
+The local 5M optimisation gives a pooled official fixed-parabola score above `0.995`:
 
-| metric | value |
+| official-target metric | value |
 |---|---:|
 | `fixed_mean` | 0.995813 |
 | `fixed_min` | 0.995337 |
 | `fixed_max` | 0.996453 |
 | `fixed_std` | 0.000400 |
 
-The current run is above `0.995` both in mean and worst-seed official pooled fixed R².
+This is the main challenge result. The current run is above `0.995` both in the mean score and in the worst-seed score.
 
 ## Main claim
 
-The fixed q-variance parabola is T-invariant as a formula. It also remains an excellent fit to the pooled empirical central curve. The claim here is different: when empirical q-variance is evaluated separately by window length, the fixed parabola's goodness-of-fit varies substantially across T. The proposed path model gives a more T-stable fit to the empirical q-variance surface `Q(z,T)`.
+The model reaches the challenge target: pooled official fixed q-variance R² above `0.995`.
 
-So the comparison is not “which curve draws the prettier pooled parabola?” The comparison is whether a path process can reproduce the empirical family of conditional variance curves across window lengths.
+In addition, it gives a more T-stable empirical fit than the fixed parabola. The fixed q-variance parabola is T-invariant as a formula, but its empirical goodness-of-fit is not equally stable across individual window lengths. The proposed path model gives a more stable fit to the empirical q-variance surface `Q(z,T)`.
 
-## Model structure
+## Model in one paragraph
 
-Let the innovation be `eps_t`. Define the even and odd channels:
+The process uses a persistent hidden activity bath. The daily innovation is decomposed into an even activity channel and an odd signed-pressure channel. Two order-flow combinations of those channels form a hidden state. That state controls the daily variance multiplier. The generator has exactly three numerical parameters: `beta_mult`, `memory`, and `eta`.
+
+## Definition
+
+Let `eps_t` be an i.i.d. standard normal innovation. Define
 
 ```text
 E_t = (eps_t^2 - 1) / sqrt(2)
 O_t = eps_t
 ```
 
-The baseline driver is
+The baseline bath driver is
 
 ```text
 D_t = E_t - tanh(eta) O_t
 ```
 
-with persistent bath state
+and the persistent bath state is
 
 ```text
 F0_t = AR1(D_(t-1); memory)
@@ -56,7 +59,7 @@ C_t = E_(t-1) O_(t-2) - O_(t-1) E_(t-2)
 S_t = E_(t-1) O_(t-2) + O_(t-1) E_(t-2)
 ```
 
-`C_t` is the antisymmetric/commutator-like term. `S_t` is the symmetric partner. After orthogonalising these against the baseline bath, the submitted hidden state is
+After removing overlap with the baseline bath, the submitted hidden state is
 
 ```text
 F_t = std(F0_t + C_t_perp - tanh(eta) S_t_perp)
@@ -74,33 +77,32 @@ and returns are generated as
 r_t = sqrt(beta_mult * sigma0^2 * A_t / 252) * eps_t
 ```
 
-Only three numerical parameters are exposed:
+## Parameter count
+
+The model has exactly three numerical parameters:
 
 ```text
 beta_mult, memory, eta
 ```
 
-The channel definitions, orthogonalisation rule, signs, and `tanh(eta)` coupling are fixed architectural choices.
+There are no separately fitted shape parameters, cutoffs, caps, lookup tables, horizon-specific adjustments, or hidden calibration constants. The equations above are the model definition.
 
 ## Official score
 
-The official challenge score is the pooled fixed-parabola q-variance score. The current local 5M optimisation gives:
+The official target is the pooled fixed q-variance curve. With the parameter set above, the current local 5M result is:
 
 ```text
 fixed_mean = 0.995813
 fixed_min  = 0.995337
 ```
 
-This is the parameter set to submit for the challenge target.
+This is the result intended for the challenge ranking.
 
-## Empirical T-stability
+## T-invariance and empirical window dependence
 
-The empirical comparison below uses two tests:
+The fixed q-variance parabola is T-invariant by construction. Empirically, however, its fit varies substantially across individual window lengths. The proposed process gives a more stable per-window empirical fit.
 
-1. `|z| < 0.6`, the central range closest to the official q-variance target.
-2. `|z| < 1.0`, a wider robustness range including more higher-order empirical structure.
-
-### Per-T fit, |z| < 0.6
+### Central range: |z| < 0.6
 
 | T | model vs empirical | fixed parabola vs empirical | model gain |
 |---:|---:|---:|---:|
@@ -123,11 +125,7 @@ Summary across all T slices:
 
 ![Empirical per-T fit, |z|<0.6](fig_empirical_perT_r2_z06.png)
 
-The line chart above is the main empirical diagnostic. It shows that the model's empirical R² is much more stable across window lengths.
-
-### q-variance slices, |z| < 0.6
-
-These plots show individual T-slices rather than the pooled curve. This is the clearer visual comparison because the claim is about the empirical surface `Q(z,T)`, not only the pooled projection.
+Selected q-variance slices:
 
 ![q-variance slice T=5](fig_qvariance_T5_z06.png)
 
@@ -137,7 +135,7 @@ These plots show individual T-slices rather than the pooled curve. This is the c
 
 ![q-variance slice T=130](fig_qvariance_T130_z06.png)
 
-### Robustness check, |z| < 1.0
+### Wider robustness range: |z| < 1.0
 
 | T | model vs empirical | fixed parabola vs empirical | model gain |
 |---:|---:|---:|---:|
@@ -160,64 +158,53 @@ Summary across all T slices:
 
 ![Empirical per-T fit, |z|<1.0](fig_empirical_perT_r2_z10.png)
 
-Selected wider-range slices:
-
-![q-variance slice T=5, |z|<1.0](fig_qvariance_T5_z10.png)
-
-![q-variance slice T=80, |z|<1.0](fig_qvariance_T80_z10.png)
-
-## Why the pooled curve is not the headline
-
-A pooled q-variance curve averages over window length. That is exactly where the fixed parabola is expected to look best. The path model has a harder job: it must generate a coherent family of curves across T, not just the pooled average.
-
-For that reason the pooled empirical curve is useful as a sanity check, but it is not the central evidence for the process. The central evidence is the per-T empirical comparison and the separate T-slice curves.
+The wider range is not the main optimisation target; it is included as a robustness check.
 
 ## Local scoring commands
 
-Generate one price path for the official scorer:
+Generate the official price CSV:
 
 ```powershell
-python strict_three_param_noncomm_antisym_bath_model.py --mode sym_neg_tanh --n 5000000 --seed 1 --beta-mult 2.028391 --memory 110.393674 --eta 1.091468 --out-prefix final_symneg_seed1 --out-price final_symneg_seed1_prices.csv --quiet
+python strict_three_param_noncomm_antisym_bath_model.py --mode sym_neg_tanh --n 5000000 --seed 1 --beta-mult 2.028391 --memory 110.393674 --eta 1.091468 --out-prefix final_symneg_5M --out-price .\score_run\variance_timeseries.csv --quiet
 ```
 
-Then run the local official scorer on:
+Run the official conversion and scorer from the `score_run` folder:
+
+```powershell
+cd .\score_run
+python data_loader_csv.py
+python score_submission.py
+cd ..
+```
+
+`data_loader_csv.py` reads `variance_timeseries.csv` and writes `dataset.parquet`. `score_submission.py` scores `dataset.parquet`.
+
+To regenerate a 100K sample price CSV for the submission folder:
+
+```powershell
+python strict_three_param_noncomm_antisym_bath_model.py --mode sym_neg_tanh --n 100000 --seed 1 --beta-mult 2.028391 --memory 110.393674 --eta 1.091468 --out-prefix sample_symneg_100k --out-price .\submissions\katastrofa_noncomm\sample_100k_prices.csv --quiet
+```
+
+## Files for PR
+
+Expected submission folder:
 
 ```text
-final_symneg_seed1_prices.csv
+submissions/katastrofa_noncomm/
+    README.md
+    dataset.parquet
+    sample_100k_prices.csv
+    strict_three_param_noncomm_antisym_bath_model.py
+    fig_empirical_perT_r2_z06.png
+    fig_empirical_perT_r2_z10.png
+    fig_qvariance_T5_z06.png
+    fig_qvariance_T20_z06.png
+    fig_qvariance_T80_z06.png
+    fig_qvariance_T130_z06.png
 ```
 
-The exact command depends on your scorer filename, usually one of:
+## Notes before final PR
 
-```powershell
-python score_run.py final_symneg_seed1_prices.csv
-python score.py final_symneg_seed1_prices.csv
-python score_run.py --price-file final_symneg_seed1_prices.csv
-```
-
-To reproduce the local multi-seed fixed score used during optimisation, create a one-row parameter file:
-
-```powershell
-@"
-mode,beta_mult,memory,eta,objective
-sym_neg_tanh,2.028391,110.393674,1.091468,0
-"@ | Set-Content final_symneg_params.csv
-```
-
-Then rerank:
-
-```powershell
-python bo_noncomm_antisym_bath_robust_invariance.py --rerank-input final_symneg_params.csv --n 5000000 --seeds 1,2,3,4,5 --seed-policy crn --objective-kind blend --min-weight 0.65 --lcb-k 0.25 --top 1 --std-weight 0.0 --min-penalty 0.0 --perT-mean-weight 0.0 --perT-min-weight 0.0 --perT-std-weight 0.0 --zdist-mean-weight 0.0 --zdist-min-weight 0.0 --log-range-weight 0.0 --out-prefix local_score_final_symneg_5M
-```
-
-Inspect:
-
-```powershell
-python -c "import pandas as pd; df=pd.read_csv('local_score_final_symneg_5M_best30.csv'); cols=['mode','beta_mult','memory','eta','fixed_mean','fixed_min','fixed_max','fixed_std','T5_fixed_mean','T10_fixed_mean','T20_fixed_mean','T40_fixed_mean','T80_fixed_mean']; print(df[cols].to_string(index=False))"
-```
-
-## Final checks before PR
-
-- Rerun the empirical comparison with the final parameter set if the charts were generated from an earlier empirical-check file.
-- Add exact official scorer output.
-- Add seven-seed rerank if available.
-- Keep the pooled empirical plot out of the main README unless explicitly framed as a pooled-only sanity check.
+- Add the exact output of `score_submission.py`.
+- If a 7-seed rerank is used, update the score table.
+- Keep the README focused on the official pooled R² above `0.995` first, then the empirical T-stability evidence.
