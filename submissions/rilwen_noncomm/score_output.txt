@@ -1,0 +1,14 @@
+Official score_submission.py output
+
+ → 3854404 clean windows
+Done! 1 file created
+(qvar) PS C:\Users\amwer\work\Projects\Wilmott\challenge\score_run> python score_submission.py
+3854404 windows
+z has NaNs: 0
+σ₀ = 0.2586  zoff = 0.0214  R² = 0.9960
+T = 5 σ₀ = 0.2586  zoff = 0.0214  R² = 0.7665
+T = 10 σ₀ = 0.2586  zoff = 0.0214  R² = 0.9445
+T = 20 σ₀ = 0.2586  zoff = 0.0214  R² = 0.9659
+T = 40 σ₀ = 0.2586  zoff = 0.0214  R² = 0.9730
+T = 80 σ₀ = 0.2586  zoff = 0.0214  R² = 0.8992
+Fit: σ₀ = 0.1912, zoff = 0.0418, R² = 0.9933
