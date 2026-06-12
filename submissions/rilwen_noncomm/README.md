@@ -23,9 +23,12 @@ The model reaches the challenge target: pooled official q-variance $R^2$ above *
 
 In addition, it gives a more $T$-stable empirical fit than the official q-variance parabola. The official q-variance parabola is $T$-invariant as a formula, but its empirical goodness-of-fit is not equally stable across individual window lengths. This path model gives a more stable fit to the empirical q-variance surface $Q(z,T)$.
 
+A derivation of the Ising-response market-bath process is given in [MODEL_DERIVATION.md](MODEL_DERIVATION.md).
+
 ## Market interpretation
 
 The model can be read as a simple market-state model. Prices do not move only because of today’s random shock. They move inside a market environment that remembers recent pressure, activity, and imbalance.
+
 
 Each day brings a new unpredictable market shock. The model splits this daily innovation into two components. The first component measures the intensity of the day, regardless of direction: quiet, ordinary, or high-information. The second component keeps the sign of the pressure: upward or downward. The hidden bath is a persistent memory of these signed and unsigned shocks.
 
@@ -112,8 +115,8 @@ Summary across all $T$ slices:
 
 | metric | model | official q-variance parabola |
 |---|---:|---:|
-| mean per- $T$ $R^2$ | 0.974796 | 0.885335 |
-| minimum per- $T$ $R^2$ | 0.966724 | 0.739738 |
+| mean per-$T$ $R^2$ | 0.974796 | 0.885335 |
+| minimum per-$T$ $R^2$ | 0.966724 | 0.739738 |
 | standard deviation across $T$ | 0.004780 | 0.066584 |
 | range across $T$ | 0.015046 | 0.246921 |
 | $T$-slices won by model | 13/14 | — |
@@ -145,8 +148,8 @@ Summary across all $T$ slices:
 
 | metric | model | official q-variance parabola |
 |---|---:|---:|
-| mean per- $T$ $R^2$ | 0.965389 | 0.942759 |
-| minimum per- $T$ $R^2$ | 0.933024 | 0.879179 |
+| mean per-$T$ $R^2$ | 0.965389 | 0.942759 |
+| minimum per-$T$ $R^2$ | 0.933024 | 0.879179 |
 | standard deviation across $T$ | 0.017000 | 0.033750 |
 | range across $T$ | 0.053458 | 0.112238 |
 | $T$-slices won by model | 11/14 | — |
