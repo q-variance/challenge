@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy.optimize import curve_fit
 from scipy.stats import norm, poisson
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
@@ -73,6 +73,8 @@ popt = [0.2586, 0.0214]  # same as optimized fit to data  # for competition scor
 
 fitted = qvar(binned.z_mid, popt[0], popt[1])  # cols are z_bin, which is a range like (-0.601, -0.55], and qvar
 r2 = 1 - np.sum((binned["var"] - fitted)**2) / np.sum((binned["var"] - binned["var"].mean())**2)
+
+
 
 print(f"σ₀ = {popt[0]:.4f}  zoff = {popt[1]:.4f}  R² = {r2:.4f}")
 
@@ -186,7 +188,6 @@ plt.grid(alpha=0.3)
 plt.title('All stocks T=2, 4, 8, 16 weeks – Q-Variance', fontsize=14)
 
 
-
 # now check for time-invariant distribution
 data = df_orig.copy()
 
@@ -261,3 +262,78 @@ plt.tight_layout()
 
 plt.show()
 
+
+
+# now plot coef b vs T
+
+def analyze_and_plot_slopes(dataframe):
+    """
+    Performs a linear regression y = a + b * z^2 for each period T,
+    extracts the slope b(T), prints a summary table, and plots b(T) vs T.
+    
+    Parameters:
+    - dataframe (pd.DataFrame): The master combined dataframe containing 'z', 'var', and 'T'
+    """
+    # Group by the unique period lengths present in the dataframe
+    grouped = dataframe.groupby('T')
+    
+    t_list = []
+    b_list = []
+    a_list = []
+    
+    print(f"{'Period (T)':<12} | {'Intercept (a)':<15} | {'Slope b(T)':<15} | {'Theoretical Target':<18}")
+    print("-" * 68)
+    
+    for t_val, group in grouped:
+        x = group['z']**2
+        y = group['var']
+        
+        # np.polyfit(x, y, 1) fits a 1st-degree polynomial: y = slope * x + intercept
+        # It handles ordinary least squares regression natively
+        slope, intercept = np.polyfit(x, y, 1)
+        
+        t_list.append(t_val)
+        b_list.append(slope)
+        a_list.append(intercept)
+        
+        print(f"{t_val:<12} | {intercept:<15.6f} | {slope:<15.4f} | 0.5000")
+        
+        
+    q_list = [0.5] * len(t_list)  # compare with constant 0.5
+    mae = mean_absolute_error(b_list, q_list)
+    print(f"MAE: {mae}")  # Lower is closer to 0
+    rmse = np.sqrt(mean_squared_error(b_list, q_list))
+    print(f"RMSE: {rmse}")  # Lower is closer to 0
+
+    # --- Visualization Code ---
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Plot empirical slope values
+    ax.plot(t_list, b_list, marker='s', markersize=6, color='darkgreen', 
+            linestyle='-', linewidth=2, label=f'Empirical Slope b(T), MAE = {mae:.3f}')
+    
+    # Plot the expected theoretical horizontal line
+    ax.axhline(y=0.5, color='crimson', linestyle='--', linewidth=1.5, 
+               label='Theoretical Prediction (b = 0.5)')
+    ax.axhline(y=0.0, color='blue', linestyle='--', linewidth=1.5, 
+               label='Classical Prediction (b = 0)')
+    
+    # Visual Layout Polish
+    ax.set_title(r'Empirical Regression Slope $b(T)$ vs. Scale $T$', fontsize=14, pad=15)
+    ax.set_xlabel('Period Length in Days (T)', fontsize=12)
+    ax.set_ylabel(r'Estimated Slope Coefficient ($b$)', fontsize=12)
+    
+    # Configure grid lines and legend
+    ax.grid(True, linestyle=':', alpha=0.6)
+    ax.legend(fontsize=11, loc='best')
+    
+    # Force y-axis scaling to bracket the target symmetrically 
+    # ax.set_ylim(0, 1)
+    
+    plt.tight_layout()
+    plt.show()
+
+# --- Execution ---
+analyze_and_plot_slopes(df)
+
+plt.show()
