@@ -27,7 +27,7 @@ In addition, it gives a more $T$-stable empirical fit than the official q-varian
 
 The model can be read as a simple market-state model. Prices do not move only because of today’s random shock. They move inside a market environment that remembers recent pressure, activity, and imbalance.
 
-Each daily innovation is split into two components. The first component measures the intensity of the day, regardless of direction: quiet, ordinary, or high-information. The second component keeps the sign of the pressure: upward or downward. The hidden bath is a persistent memory of these signed and unsigned shocks.
+Each day brings a new unpredictable market shock. The model splits this daily innovation into two components. The first component measures the intensity of the day, regardless of direction: quiet, ordinary, or high-information. The second component keeps the sign of the pressure: upward or downward. The hidden bath is a persistent memory of these signed and unsigned shocks.
 
 The hidden bath represents market activity or pressure. When the bath state is high, the market is more active and daily variance is higher. When it is low, the market is quieter. The parameter $\mathrm{memory}$ controls how long this state persists, $\eta$ controls how strongly it affects volatility, and $\beta_{\mathrm{mult}}$ sets the overall variance scale.
 
