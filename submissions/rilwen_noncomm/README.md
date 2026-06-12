@@ -112,8 +112,8 @@ Summary across all $T$ slices:
 
 | metric | model | official q-variance parabola |
 |---|---:|---:|
-| mean per-$T$ $R^2$ | 0.974796 | 0.885335 |
-| minimum per-$T$ $R^2$ | 0.966724 | 0.739738 |
+| mean per- $T$ $R^2$ | 0.974796 | 0.885335 |
+| minimum per- $T$ $R^2$ | 0.966724 | 0.739738 |
 | standard deviation across $T$ | 0.004780 | 0.066584 |
 | range across $T$ | 0.015046 | 0.246921 |
 | $T$-slices won by model | 13/14 | — |
@@ -145,8 +145,8 @@ Summary across all $T$ slices:
 
 | metric | model | official q-variance parabola |
 |---|---:|---:|
-| mean per-$T$ $R^2$ | 0.965389 | 0.942759 |
-| minimum per-$T$ $R^2$ | 0.933024 | 0.879179 |
+| mean per- $T$ $R^2$ | 0.965389 | 0.942759 |
+| minimum per- $T$ $R^2$ | 0.933024 | 0.879179 |
 | standard deviation across $T$ | 0.017000 | 0.033750 |
 | range across $T$ | 0.053458 | 0.112238 |
 | $T$-slices won by model | 11/14 | — |
