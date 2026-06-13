@@ -54,7 +54,7 @@ df = pd.concat([pd.read_parquet("dataset_part1.parquet"),pd.read_parquet("datase
 
 ## Scoring the Challenge
 
-The aim of the challenge is to replicate the empirical phenomenon of q-variance. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
+The aim of the challenge is to replicate the empirical phenomenon of q-variance using a continuous-time model with no more than three free parameters. Since the q-variance parabola with $\sigma_0=0.259$ and $z_0 = 0.021$ gives a near-perfect fit (R² = 0.999) this curve can be used as a proxy for the real data. In other words, the aim is to fit the two-parameter parabola, using **up to three parameters** – must be easy, right?
 
 To get started, a good first step is to replicate the q-variance curve using `baseline/baseline_fit.py` with the supplied `dataset.parquet` file. You can also check out `notebooks/plotqvariance.ipynb` which shows how q-variance is computed for a single asset, in this case the S&P 500.
 
