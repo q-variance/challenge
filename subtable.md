@@ -16,7 +16,8 @@
 | 12 | Pierre | Pierre | sigma, drift, xi | 2026-1-20 | Stochastic, poor fit|
 | 13 | Paul Symonds | Paul Symonds and Claude AI | sigma, kappa, rho, shape 3/2, Zmax | 2026-2-5 | Inverse-gamma, grid acts to cap vol |
 | 14 | rilwen | Rilwen | alpha, beta, eta, KERNEL_POWER, vol cap | 2026-5-10 | Inverse-gamma with vol cap|
-| 15 | rilwen_coherent_ig_energy | Rilwen | beta_mult, memory, eta, NU_FIXED | 2026-6-05 | Coherent inverse-chi-square Hermite-energy|
+| 15 | rilwen_coherent_ig_energy | Rilwen | beta_mult, memory, eta, SIGMA0, NU_FIXED | 2026-6-05 | Coherent inverse-chi-square Hermite-energy|
 | 16 | rilwen_phase_hermite_cos2 | Rilwen | beta_mult, g, eta, HERMITE_RATIO | 2026-5-06 | Phase-Hermite cos2 oscillator|
+| 17 | rilwen_noncomm | Rilwen | beta_mult, memory, eta, SIGMA0 | 2026-5-12 | Non-commutative bath|
 
 ---
