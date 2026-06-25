@@ -160,6 +160,10 @@ Q: Sounds like quantum woo to me.
 
 A: ?
 
+Q: If we have a historical time series of price data then price and variance are classical observable quantities. Doesn't this rule out a quantum model?
+
+A: The quantum model is a probabilistic model of what can happen in the future. If the price and variance were already known, then we wouldn't need a model.
+
 Q: Why do we need a continuous time model anyway? Don't we just need the price change distribution as a function of time?
 
 A: In theory you need it for perfect hedging, but in practice that is impossible due to things like the bid-ask spread. The situation may therefore resemble something like turbulent flow in physics, where we can model the statistical behaviour without reproducing individual trajectories. The aim of the challenge is to help answer that question.
