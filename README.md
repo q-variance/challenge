@@ -113,11 +113,11 @@ Q: The data supplied is for daily prices. Could q-variance just be an artefact o
 
 A: It is easily checked that q-variance applies to intraday prices (see the [notebook](notebooks/SP500_2008-2021_30m.ipynb)), and to Bitcoin which doesn't even have a daily close.
 
-Q: Figure 1 shows binned variance versus $z$. Why not just do a linear regression of variance versus $z^2$ to estimate the quadratic coefficient?
+<!-- Q: Figure 1 shows binned variance versus $z$. Why not just do a linear regression of variance versus $z^2$ to estimate the quadratic coefficient?
 
 A: The q-variance hypothesis concerns the conditional expectation $\mathbb{E}[v(T)\mid z]$ which may be interpreted as the mean variance of the system when it is in a state characterized by normalized return $z$. Empirically, a given state $z$ is not observed exactly, but through a collection of periods for which $z$ lies within a small interval around a target value $z_k$. The variance in that state is therefore estimated by averaging over these periods: $\hat m(z_k) = \frac{1}{n_k} \sum_{i \in B_k} v_i,$
 which is the standard estimator of the conditional expectation $\mathbb{E}[v(T)\mid z = z_k]$. This averaging is essential, as individual realizations $v_i$ are highly variable, with substantial dispersion even for fixed $z$. The binning procedure reduces this noise by a factor proportional to $1/n_k$, yielding a stable estimate of the state-dependent variance. By contrast, a regression of $v$ on $z^2$ operates directly on the noisy individual observations,
-$v_i = a + b z_i^2 + \varepsilon_i$, and therefore attempts to infer the conditional expectation indirectly through a parametric fit. While such a regression is useful for testing the restriction $b = 1/2$, it does not explicitly perform the averaging required to estimate $\mathbb{E}[v(T)\mid z]$. Thus, binning and regression serve different purposes: binning provides a direct and low-noise estimator of the variance in each state, while regression tests whether these state-dependent averages are consistent with the quadratic form $\sigma^2 + \frac12 z^2$. Error estimates based on standard regression techniques may be misleadingly low, because they do not account for effects such as heteroskedasticity or correlations. Results can be improved by removing points with $|z| > 0.6$, consistent with the fact that q-variance is based on a first-order approximation to the underlying dynamics (and the same as the horizontal axis limits in e.g. [Figure 1](Figure_1.png)). [Figure 6](Figure_6.png) and [Figure 7](Figure_7.png) show the linear regression for the S\&P 500 stocks data with this filter applied (removing 7 percent of points), the linear coefficient of 0.503 is near 0.5 as expected. [Figure 12](Figure_12_nobin_z0.6.png) shows the results for different time periods T and |z| < 0.6.
+$v_i = a + b z_i^2 + \varepsilon_i$, and therefore attempts to infer the conditional expectation indirectly through a parametric fit. While such a regression is useful for testing the restriction $b = 1/2$, it does not explicitly perform the averaging required to estimate $\mathbb{E}[v(T)\mid z]$. Thus, binning and regression serve different purposes: binning provides a direct and low-noise estimator of the variance in each state, while regression tests whether these state-dependent averages are consistent with the quadratic form $\sigma^2 + \frac12 z^2$. Error estimates based on standard regression techniques may be misleadingly low, because they do not account for effects such as heteroskedasticity or correlations. Results can be improved by removing points with $|z| > 0.6$, consistent with the fact that q-variance is based on a first-order approximation to the underlying dynamics (and the same as the horizontal axis limits in e.g. [Figure 1](Figure_1.png)). [Figure 6](Figure_6.png) and [Figure 7](Figure_7.png) show the linear regression for the S\&P 500 stocks data with this filter applied (removing 7 percent of points), the linear coefficient of 0.503 is near 0.5 as expected. [Figure 12](Figure_12_nobin_z0.6.png) shows the results for different time periods T and |z| < 0.6. -->
 
 Q: How does q-variance vary over different time periods, or from stock to stock, or for larger values of $|z|$?
 
@@ -160,9 +160,9 @@ Q: Sounds like quantum woo to me.
 
 A: ?
 
-Q: If we have a historical time series of price data then price and variance are classical observable quantities. Doesn't this rule out a quantum model?
+<!-- Q: If we have a historical time series of price data then price and variance are classical observable quantities. Doesn't this rule out a quantum model?
 
-A: The quantum model is a probabilistic model of what can happen in the future. If the price and variance were already known, then we wouldn't need a model.
+A: The quantum model is a probabilistic model of what can happen in the future. If the price and variance were already known, then we wouldn't need a model. -->
 
 Q: Why do we need a continuous time model anyway? Don't we just need the price change distribution as a function of time?
 
