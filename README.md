@@ -16,8 +16,6 @@ To take part in the challenge, a suggested first step is to replicate the above 
 
 **Prize:** One-year subscription to WILMOTT magazine and publication of the technique.
 
-**Closing Date:** None.
-
 For questions on the competition, email admin@wilmott.com.
 
 > ## Competition Update April 2026
