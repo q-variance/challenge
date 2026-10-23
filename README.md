@@ -180,6 +180,8 @@ Orrell D (2025) Quantum impact and the supply-demand curve. Philosophical Transa
 
 Orrell D (2026) Q-Variance: A Quadratic Constraint on Variance. [SSRN preprint.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6140027)
 
+Orrell D, Qadir A (2026) Does Not Commute: Incommensurate Observations and the Scaling Properties of Financial Markets. [SSRN preprint.](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7630979)
+
 Orrell D (2026) [The Quantum Stock Market: And the Road Not Taken in Finance.](https://mitpress.mit.edu/9780262055987/the-quantum-stock-market/) MIT Press.
 
 
